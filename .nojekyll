@@ -1,0 +1,3 @@
+# Logs do GitHub Pages
+# Por padrão o GitHub Pages publica a branch main na raiz.
+# Nao e necessario build step: o site e um unico arquivo index.html.
