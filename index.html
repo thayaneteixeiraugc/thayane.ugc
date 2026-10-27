@@ -319,6 +319,7 @@ section{padding:68px 0;}
 }
 /* a assinatura do cafe */
 .capa-frase .emoji,
+.capa-assinatura .emoji,
 .assinatura .emoji,
 .captura h3 .emoji,
 .rodape-nome .emoji{
@@ -326,6 +327,16 @@ section{padding:68px 0;}
   font-style:normal;
   font-weight:400;
   letter-spacing:0;
+}
+/* linha de identidade pessoal na capa */
+.capa-assinatura{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:1.32rem;
+  font-style:italic;
+  font-weight:500;
+  color:var(--caramelo-escuro);
+  margin-bottom:26px;
+  line-height:1.4;
 }
 .capa-frase{
   font-family:"Cormorant Garamond",Georgia,serif;
@@ -460,30 +471,39 @@ section{padding:68px 0;}
   box-shadow:0 2px 10px rgba(105,77,56,.2);
 }
 
-/* faixa de marcas */
+/* faixa de nichos: fundo escuro, caixa alta, separados por ponto */
 .faixa-marcas{
   margin-top:60px;
-  border-top:1px solid var(--line-strong);
-  border-bottom:1px solid var(--line-strong);
-  background:var(--creme-claro);
-  padding:16px 0;
+  background:var(--cafe);
+  padding:14px 0;
   overflow:hidden;
+  border-top:3px solid var(--caramelo);
+  border-bottom:3px solid var(--caramelo);
 }
 .faixa-marcas .container{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
-  gap:10px 28px;
+  align-items:center;
+  gap:6px 14px;
 }
 .marca{
-  font-family:"Cormorant Garamond",Georgia,serif;
-  font-size:1.22rem;
+  font-family:"Poppins",sans-serif;
+  font-size:.76rem;
   font-weight:600;
-  color:var(--cafe);
-  letter-spacing:.03em;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--creme);
   white-space:nowrap;
 }
-.marca::before{content:"✦ ";color:var(--bege);font-size:.72em;}
+.marca::after{
+  content:"·";
+  color:var(--bege);
+  margin-left:14px;
+  font-size:1.1em;
+  line-height:0;
+}
+.faixa-marcas .container > .marca:last-child::after{content:none;}
 
 /* ============================================================
    2. SOBRE
@@ -494,6 +514,33 @@ section{padding:68px 0;}
   gap:38px;
   align-items:start;
 }
+/* dados pessoais: etiquetas com as informacoes que a marca precisa saber */
+.sobre-dados{
+  list-style:none;
+  margin:20px 0 24px;
+  padding:0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+.sobre-dados li{
+  font-family:"Poppins",sans-serif;
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--cafe);
+  background:#efdfcb;
+  border:1px solid var(--line-strong);
+  border-radius:20px;
+  padding:7px 16px;
+}
+.sobre-dados li:first-child{
+  background:var(--caramelo-escuro);
+  border-color:var(--caramelo-escuro);
+  color:var(--creme-claro);
+}
+
 /* abertura e fecho do sobre: o texto que posiciona a creator */
 .sobre-lead{
   font-family:"Cormorant Garamond",Georgia,serif;
@@ -779,44 +826,6 @@ section{padding:68px 0;}
   line-height:1.5;
 }
 
-.resultados{
-  background:var(--creme-claro);
-  border:1px solid var(--line-strong);
-  border-top:5px solid var(--caramelo);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  padding:26px 24px;
-  margin-bottom:36px;
-}
-.resultados h3{
-  font-size:1.35rem;
-  color:var(--cafe);
-  margin-bottom:18px;
-  padding-bottom:12px;
-  border-bottom:1px solid var(--line);
-}
-.resultado{
-  display:grid;
-  grid-template-columns:190px 1fr auto;
-  gap:16px;
-  align-items:baseline;
-  padding:13px 0;
-  border-bottom:1px solid var(--line);
-}
-.resultado:last-child{border-bottom:0;padding-bottom:0;}
-.resultado .camp{
-  font-family:"DM Serif Display",Georgia,serif;
-  font-size:1.14rem;
-  color:var(--cafe);
-}
-.resultado .desc{font-size:.88rem;color:var(--ink-soft);}
-.resultado .val{
-  font-family:"DM Serif Display",Georgia,serif;
-  font-size:1.5rem;
-  color:var(--caramelo-escuro);
-  white-space:nowrap;
-}
-
 .depoimentos-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -1082,8 +1091,6 @@ section{padding:68px 0;}
   .metricas-grid{grid-template-columns:repeat(2,1fr);}
   .depoimentos-grid{grid-template-columns:1fr;}
   .contato-grid{grid-template-columns:1fr;}
-  .resultado{grid-template-columns:1fr;gap:2px;}
-  .resultado .val{font-size:1.3rem;}
 }
 
 @media (max-width:760px){
@@ -1170,6 +1177,7 @@ section{padding:68px 0;}
         <span class="section-tag">UGC Creator &middot; Rio de Janeiro</span>
         <h1>Thayane<em>Teixeira</em></h1>
         <p class="capa-frase">Maternidade que inspira, tecnologia que facilita. Radar de beleza e bem estar para lares conectados. <span class="emoji" aria-hidden="true">☕</span></p>
+        <p class="capa-assinatura">Mamãe do Heitor, Carioca da Gema. <span class="emoji" aria-hidden="true">🤎</span></p>
 
         <div class="capa-acoes">
           <a class="btn btn--red" href="#contato">Falar comigo</a>
@@ -1204,8 +1212,8 @@ section{padding:68px 0;}
   </div>
 
   <div class="faixa-marcas">
-    <div class="container" id="listaMarcas">
-      <!-- As marcas são inseridas pelo JavaScript a partir do array MARCAS -->
+    <div class="container" id="listaNichosFaixa">
+      <!-- Os nichos são inseridos pelo JavaScript a partir do array NICHOS -->
     </div>
   </div>
 </section>
@@ -1230,6 +1238,13 @@ section{padding:68px 0;}
       <div class="ficha">
         <div class="ficha-body">
           <p class="sobre-lead">Oi, eu sou a Thayane. 💫 Crio vídeos com a cara, a voz e o ritmo de quem realmente usa o produto, sem aquele tom de locução que ninguém aguenta até o final.</p>
+
+          <ul class="sobre-dados">
+            <li>28 anos</li>
+            <li>Casada</li>
+            <li>Cristã</li>
+            <li>Mãe do Heitor</li>
+          </ul>
 
           <p>Antes disso, eu era empreendedora e vendia muito. Mais de 8 anos em vendas me ensinaram a entender pessoas, criar conexões e transformar necessidade em decisão. Quando transformei essa experiência em conteúdo, a venda virou estratégia, a comunicação virou história e o meu jeito de lidar com gente virou conexão.</p>
 
@@ -1294,13 +1309,6 @@ section{padding:68px 0;}
 
     <div class="metricas-grid" id="metricasGrid">
       <!-- As métricas são inseridas pelo JavaScript a partir do array METRICAS -->
-    </div>
-
-    <div class="resultados" id="resultadosBox">
-      <h3>Resultados de campanha</h3>
-      <div id="resultadosLista">
-        <!-- Os resultados são inseridos pelo JavaScript a partir do array RESULTADOS -->
-      </div>
     </div>
 
     <div class="depoimentos-grid" id="depoimentosGrid">
@@ -1423,17 +1431,21 @@ const PERFIL = {
   frase: "Maternidade que inspira, tecnologia que facilita. Radar de beleza e bem estar para lares conectados."
 };
 
-/* MARCAS: lista da faixa fina no fim da capa.
-   Substitua "Marca 01" a "Marca 12" pelos nomes reais. */
-const MARCAS = [
-  "Marca 01","Marca 02","Marca 03","Marca 04","Marca 05","Marca 06",
-  "Marca 07","Marca 08","Marca 09","Marca 10","Marca 11","Marca 12"
-];
-
-/* NICHOS: os botões de filtro da galeria de trabalhos.
-   Adicione ou remova aqui e o filtro se ajusta sozinho.
+/* NICHOS: os botoes de filtro da galeria de trabalhos.
+   O primeiro item e o "Todos", que mostra a galeria inteira.
    Tech e o nicho de principal objetivo. */
 const NICHOS = ["Todos","tech","casa","bem estar","beleza","maternidade"];
+
+/* FAIXA DA CAPA: os servicos e os nichos, no formato do portfolio antigo.
+   Escreva em caixa alta, que o site formata sozinho. */
+const FAIXA_CAPA = [
+  "Conteúdo e-commerce",
+  "TiktoksShop",
+  "UGC de conversão",
+  "Storytelling criativo",
+  "PubliPost",
+  "Criativos de alta performance"
+];
 
 /* DESTAQUES: os três vídeos em destaque.
    Troque "link" pelo endereço real do vídeo (YouTube, Vimeo, Reels etc).
@@ -1504,13 +1516,6 @@ const METRICAS = [
   { valor:100,  prefixo:"",   sufixo:"%",   rotulo:"Clientes que renovam" }
 ];
 
-/* RESULTADOS: as três campanhas de destaque. */
-const RESULTADOS = [
-  { campanha:"Campanha de lançamento tech", desc:"Vídeo de reels com saída orgânica e anúncio de apoio", valor:"+2,4M" },
-  { campanha:"Campanha de skincare",      desc:"Três peças verticais com criativo e resultado",     valor:"+1,8M" },
-  { campanha:"Campanha de casa conectada", desc:"Vídeo de 30s com foco em rotina real",              valor:"+920 mil" }
-];
-
 /* DEPOIMENTOS: as quatro falas de clientes. */
 const DEPOIMENTOS = [
   { texto:"A Thayane entregou tudo no prazo, com um roteiro que eu só precisei aprovar. O vídeo ficou com a cara da nossa marca.", nome:"Cliente 01", empresa:"Marca 03" },
@@ -1576,13 +1581,13 @@ const DEPOIMENTOS = [
     }
   });
 
-  /* ---------- FAIXA DE MARCAS ---------- */
-  const listaMarcas = $("#listaMarcas");
-  MARCAS.forEach(function (marca) {
+  /* ---------- FAIXA DA CAPA ---------- */
+  const listaFaixa = $("#listaNichosFaixa");
+  FAIXA_CAPA.forEach(function (item) {
     const span = document.createElement("span");
     span.className = "marca";
-    span.textContent = marca;
-    listaMarcas.appendChild(span);
+    span.textContent = item;
+    listaFaixa.appendChild(span);
   });
 
   /* ---------- DESTAQUES ---------- */
@@ -1806,30 +1811,6 @@ const DEPOIMENTOS = [
     }
     requestAnimationFrame(passo);
   }
-
-  /* ---------- RESULTADOS ---------- */
-  const resultadosLista = $("#resultadosLista");
-  RESULTADOS.forEach(function (r) {
-    const linha = document.createElement("div");
-    linha.className = "resultado revelar";
-
-    const camp = document.createElement("div");
-    camp.className = "camp";
-    camp.textContent = r.campanha;
-
-    const desc = document.createElement("div");
-    desc.className = "desc";
-    desc.textContent = r.desc;
-
-    const val = document.createElement("div");
-    val.className = "val";
-    val.textContent = r.valor;
-
-    linha.appendChild(camp);
-    linha.appendChild(desc);
-    linha.appendChild(val);
-    resultadosLista.appendChild(linha);
-  });
 
   /* ---------- DEPOIMENTOS ---------- */
   const depoimentosGrid = $("#depoimentosGrid");
