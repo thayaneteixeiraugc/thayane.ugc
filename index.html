@@ -487,6 +487,25 @@ section{padding:68px 0;}
   gap:38px;
   align-items:start;
 }
+/* abertura e fecho do sobre: o texto que posiciona a creator */
+.sobre-lead{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:1.42rem;
+  font-weight:600;
+  line-height:1.42;
+  color:var(--cafe);
+}
+.sobre-fecho{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:1.3rem;
+  font-style:italic;
+  font-weight:500;
+  line-height:1.5;
+  color:var(--caramelo-escuro);
+  border-left:3px solid var(--bege);
+  padding-left:18px;
+  margin-bottom:26px;
+}
 .promessas{list-style:none;margin:24px 0;padding:0;display:grid;gap:14px;}
 .promessas li{
   background:var(--creme-claro);
@@ -1189,7 +1208,7 @@ section{padding:68px 0;}
 <section id="sobre">
   <div class="container">
     <span class="section-tag">Sobre mim</span>
-    <h2 class="section-title">Criadora de conteúdo que carrega propósito</h2>
+    <h2 class="section-title">A creator que entende de gente</h2>
     <hr class="rule">
 
     <div class="sobre-grid">
@@ -1204,9 +1223,13 @@ section{padding:68px 0;}
 
       <div class="ficha">
         <div class="ficha-body">
-          <p>Oi, eu sou a Thayane. 💫 Crio vídeos com a cara, a voz e o ritmo de quem realmente usa o produto, sem aquele tom de locução que ninguém aguenta até o final.</p>
-          <p>Meu trabalho é fazer a sua marca parecer uma conversa de amiga: na mesa da cozinha, no banho antes do trabalho, na rua na hora do café. Cada roteiro nasce de uma história real, porque conteúdo que dá certo é o que a pessoa reconhece como cuidado de verdade.</p>
-          <p>Atendo os nichos de <strong>tech, casa, bem estar, beleza e maternidade</strong> e acompanho cada etapa de perto: roteiro, gravação, corte e entrega. Você aprova antes de gravar, e o resultado chega pronto para publicar. ✨</p>
+          <p class="sobre-lead">Prazer, sou a Thayane. Empreendedora por essência e apaixonada por comunicação, encontrei no UGC a forma de unir criatividade, estratégia e propósito.</p>
+
+          <p>Mais de 8 anos em vendas e uma empreitada inteira me ensinaram a entender pessoas, criar conexões e transformar necessidades em decisões. Hoje, essa experiência ganhou um novo significado: a venda virou estratégia, a comunicação virou conteúdo e o meu jeito de lidar com pessoas virou conexão.</p>
+
+          <p>Através do storytelling, transformo experiências reais em histórias que aproximam as marcas das pessoas. Da maternidade que inspira à tecnologia que facilita, passando pela beleza e pelo bem-estar que tornam a rotina mais leve.</p>
+
+          <p class="sobre-fecho">Antes, eu vendia produtos. Hoje, crio histórias que fazem as pessoas quererem vivê-los. 🤎</p>
 
           <ul class="promessas">
             <li><b>Roteiro aprovado antes de gravar</b>Você lê, comenta e aprova. Nada de surpresas na hora da entrega.</li>
