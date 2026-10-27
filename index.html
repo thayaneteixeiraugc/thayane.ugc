@@ -471,39 +471,50 @@ section{padding:68px 0;}
   box-shadow:0 2px 10px rgba(105,77,56,.2);
 }
 
-/* faixa de nichos: fundo escuro, caixa alta, separados por ponto */
+/* faixa rolante: fundo escuro, caixa alta, texto passando sem parar */
 .faixa-marcas{
   margin-top:60px;
   background:var(--cafe);
-  padding:14px 0;
+  padding:9px 0;
   overflow:hidden;
-  border-top:3px solid var(--caramelo);
-  border-bottom:3px solid var(--caramelo);
+  border-top:2px solid var(--caramelo);
+  border-bottom:2px solid var(--caramelo);
 }
 .faixa-marcas .container{
   display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
   align-items:center;
-  gap:6px 14px;
+  width:max-content;
+}
+/* o trilho: duas copias identicas animate sem emenda */
+.faixa-trilho{
+  display:flex;
+  align-items:center;
+  flex-shrink:0;
+  animation:faixaCorre 28s linear infinite;
+  will-change:transform;
+}
+.faixa-marcas:hover .faixa-trilho{animation-play-state:paused;}
+@keyframes faixaCorre{
+  from{transform:translateX(0);}
+  to{transform:translateX(-50%);}
 }
 .marca{
   font-family:"Poppins",sans-serif;
-  font-size:.76rem;
+  font-size:.7rem;
   font-weight:600;
-  letter-spacing:.2em;
+  letter-spacing:.22em;
   text-transform:uppercase;
   color:var(--creme);
   white-space:nowrap;
+  padding-right:8px;
 }
 .marca::after{
   content:"·";
   color:var(--bege);
-  margin-left:14px;
-  font-size:1.1em;
+  margin:0 22px;
+  font-size:1.2em;
   line-height:0;
 }
-.faixa-marcas .container > .marca:last-child::after{content:none;}
 
 /* ============================================================
    2. SOBRE
@@ -1138,6 +1149,14 @@ section{padding:68px 0;}
     transition-duration:.001ms !important;
   }
   .revelar{opacity:1;transform:none;}
+  /* com movimento reduzido a faixa para e mostra os textos em fila */
+  .faixa-trilho{animation:none !important;transform:none !important;}
+  .faixa-marcas .container{
+    width:100%;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .faixa-marcas .container > .faixa-trilho:nth-child(2){display:none;}
 }
 
 @media print{
@@ -1213,7 +1232,7 @@ section{padding:68px 0;}
 
   <div class="faixa-marcas">
     <div class="container" id="listaNichosFaixa">
-      <!-- Os nichos são inseridos pelo JavaScript a partir do array NICHOS -->
+      <!-- A faixa rodante e montada pelo JavaScript a partir do array FAIXA_CAPA -->
     </div>
   </div>
 </section>
@@ -1436,15 +1455,13 @@ const PERFIL = {
    Tech e o nicho de principal objetivo. */
 const NICHOS = ["Todos","tech","casa","bem estar","beleza","maternidade"];
 
-/* FAIXA DA CAPA: os servicos e os nichos, no formato do portfolio antigo.
+/* FAIXA DA CAPA: os servicos que passam em movimento, sem parar.
    Escreva em caixa alta, que o site formata sozinho. */
 const FAIXA_CAPA = [
-  "Conteúdo e-commerce",
-  "TiktoksShop",
-  "UGC de conversão",
-  "Storytelling criativo",
-  "PubliPost",
-  "Criativos de alta performance"
+  "Conteúdo E-commerce",
+  "Storytelling Criativo",
+  "Conversão e Performance",
+  "Conteúdo humano e estratégico"
 ];
 
 /* DESTAQUES: os três vídeos em destaque.
@@ -1582,13 +1599,23 @@ const DEPOIMENTOS = [
   });
 
   /* ---------- FAIXA DA CAPA ---------- */
+  /* Monta duas copias identicas do trilho. A animacao desloca -50%,
+     que leva a segunda copia exatamente para onde a primeira comecou,
+     e o movimento recomeca sem emenda e sem pausa. */
   const listaFaixa = $("#listaNichosFaixa");
-  FAIXA_CAPA.forEach(function (item) {
-    const span = document.createElement("span");
-    span.className = "marca";
-    span.textContent = item;
-    listaFaixa.appendChild(span);
-  });
+  function montarTrilho() {
+    const trilho = document.createElement("div");
+    trilho.className = "faixa-trilho";
+    FAIXA_CAPA.forEach(function (item) {
+      const span = document.createElement("span");
+      span.className = "marca";
+      span.textContent = item;
+      trilho.appendChild(span);
+    });
+    return trilho;
+  }
+  listaFaixa.appendChild(montarTrilho());
+  listaFaixa.appendChild(montarTrilho());
 
   /* ---------- DESTAQUES ---------- */
   const destaquesGrid = $("#destaquesGrid");
