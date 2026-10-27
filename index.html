@@ -337,11 +337,6 @@ section{padding:68px 0;}
   padding-left:20px;
   margin-bottom:16px;
   line-height:1.5;
-}.capa-sub{
-  font-size:.95rem;
-  color:var(--ink-soft);
-  max-width:48ch;
-  margin-bottom:30px;
 }
 .capa-acoes{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:38px;}
 
@@ -398,6 +393,18 @@ section{padding:68px 0;}
   justify-content:center;
   text-align:center;
   padding:20px;
+}
+/* foto real: preenche o quadro 4:5 sem distorcer */
+.foto-bloco picture,
+.foto-bloco picture img{
+  display:block;
+  width:100%;
+}
+.foto-bloco picture img{
+  height:auto;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  object-position:center top;
 }
 .media-txt{
   position:relative;
@@ -1163,7 +1170,6 @@ section{padding:68px 0;}
         <span class="section-tag">UGC Creator &middot; Rio de Janeiro</span>
         <h1>Thayane<em>Teixeira</em></h1>
         <p class="capa-frase">Maternidade que inspira, tecnologia que facilita. Radar de beleza e bem estar para lares conectados. <span class="emoji" aria-hidden="true">☕</span></p>
-        <p class="capa-sub">Criação de conteúdo UGC para marcas de tech, casa, bem estar, beleza e maternidade. Histórias que transformam produto em cuidado no dia a dia.</p>
 
         <div class="capa-acoes">
           <a class="btn btn--red" href="#contato">Falar comigo</a>
@@ -1187,12 +1193,12 @@ section{padding:68px 0;}
       </div>
 
       <figure class="foto-bloco capa-foto">
-        <!-- TROQUE POR SUA FOTO REAL: troque a div .media abaixo por <img src="capa.jpg" alt="Thayane Teixeira, UGC Creator" class="capa-foto-img"> e ajuste o object-fit no CSS -->
         <span class="cafe-selo" aria-hidden="true">☕</span>
-        <div class="media" role="img" aria-label="Espaço reservado para a foto da creator, formato 4:5">
-          <span class="media-txt"><strong>Foto da creator</strong>Formato 4:5<br>Troque por sua imagem real</span>
-        </div>
-        <figcaption>Foto da creator &middot; 4:5</figcaption>
+        <picture>
+          <source srcset="img/thayane-capa.webp" type="image/webp">
+          <img src="img/thayane-capa.jpg" alt="Thayane Teixeira, UGC Creator, sorrindo e usando óculos de armação tartan" width="1000" height="1250" fetchpriority="high">
+        </picture>
+        <figcaption>Thayane Teixeira &middot; UGC Creator</figcaption>
       </figure>
     </div>
   </div>
@@ -1213,11 +1219,11 @@ section{padding:68px 0;}
 
     <div class="sobre-grid">
       <figure class="foto-bloco">
-        <!-- TROQUE POR SUA FOTO REAL: <img src="sobre.jpg" alt="Retrato de Thayane Teixeira" class="sobre-foto-img"> -->
         <span class="cafe-selo" aria-hidden="true">☕</span>
-        <div class="media" role="img" aria-label="Espaço reservado para o retrato da creator, formato 4:5">
-          <span class="media-txt"><strong>Retrato</strong>Formato 4:5<br>Troque por sua imagem real</span>
-        </div>
+        <picture>
+          <source srcset="img/thayane-sobre.jpg" type="image/jpeg">
+          <img src="img/thayane-sobre.jpg" alt="Retrato de Thayane Teixeira, UGC Creator, usando óculos de armação tartan" width="1000" height="1250" loading="lazy">
+        </picture>
         <figcaption>Retrato &middot; 4:5</figcaption>
       </figure>
 
