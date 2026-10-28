@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Thayane Teixeira | Portfólio UGC Creator</title>
-<meta name="description" content="Thayane Teixeira é UGC Creator no Rio de Janeiro. Vídeos UGC, cortes para anúncio, fotos de produto, unboxing e publicação para marcas de tech, casa, bem estar, beleza e maternidade.">
+<title id="tituloPagina">Thayane Teixeira | Portfólio UGC Creator</title>
+<meta name="description" id="metaDescricao" content="Thayane Teixeira é UGC Creator no Rio de Janeiro. Vídeos UGC, cortes para anúncio, fotos de produto, unboxing e publicação para marcas de tech, casa, bem estar, beleza e maternidade.">
 <meta name="theme-color" content="#694d38">
-<meta property="og:title" content="Thayane Teixeira | Portfólio UGC Creator">
-<meta property="og:description" content="Maternidade que inspira, tecnologia que facilita. Radar de beleza e bem estar para lares conectados. ☕">
+<meta property="og:title" id="ogTitulo" content="Thayane Teixeira | Portfólio UGC Creator">
+<meta property="og:description" id="ogDescricao" content="Maternidade que inspira, tecnologia que facilita. Radar de beleza e bem estar para lares conectados. ☕">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -263,6 +263,49 @@ section{padding:68px 0;}
   transition:color .15s ease, border-color .15s ease;
 }
 .menu-links a:hover{color:var(--caramelo);border-bottom-color:var(--caramelo);}
+
+/* --- seletor de idioma (PT / EN) --- */
+.menu-direita{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.idiomas{
+  display:inline-flex;
+  align-items:center;
+  gap:2px;
+  padding:3px;
+  border:1px solid var(--line-strong);
+  border-radius:20px;
+  background:var(--creme-claro);
+}
+.idioma{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  border:0;
+  background:transparent;
+  color:var(--ink-soft);
+  font-family:"Poppins",sans-serif;
+  font-size:.64rem;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  padding:6px 11px;
+  border-radius:16px;
+  cursor:pointer;
+  transition:background .16s ease, color .16s ease;
+}
+.idioma:hover{color:var(--cafe);}
+.idioma[aria-pressed="true"]{background:var(--cafe);color:var(--creme);}
+.idioma .bandeira{
+  width:17px;
+  height:11.5px;
+  display:block;
+  border-radius:1.5px;
+  box-shadow:0 0 0 1px rgba(59,42,32,.22);
+}
+.idioma:focus-visible{outline:2px solid var(--caramelo);outline-offset:2px;}
 
 .menu-toggle{
   display:none;
@@ -1131,6 +1174,7 @@ section{padding:68px 0;}
 .contato-links a{
   display:flex;
   align-items:center;
+  flex-wrap:wrap;
   gap:14px;
   text-decoration:none;
   background:var(--creme-claro);
@@ -1153,7 +1197,11 @@ section{padding:68px 0;}
   color:var(--caramelo-escuro);
   min-width:92px;
 }
-.contato-links a span{color:var(--ink-soft);}
+.contato-links a span{
+  color:var(--ink-soft);
+  min-width:0;
+  overflow-wrap:anywhere;
+}
 
 /* ============================================================
    8. RODAPÉ
@@ -1293,6 +1341,16 @@ section{padding:68px 0;}
 /* ============================================================
    RESPONSIVO
    ============================================================ */
+
+/* entre 900 e 1100 o menu aperta: o nav fica menor para caber com o idioma */
+@media (max-width:1100px) and (min-width:901px){
+  .menu-links{gap:15px;}
+  .menu-links a{font-size:.66rem;letter-spacing:.12em;}
+  .menu-inner{gap:10px;}
+  .menu-direita{gap:12px;}
+  .idioma{padding:6px 9px;}
+}
+
 @media (max-width:900px){
   .capa-grid{grid-template-columns:1fr;gap:30px;}
   .capa-foto{max-width:340px;margin:0 auto;}
@@ -1306,8 +1364,10 @@ section{padding:68px 0;}
   .contato-grid{grid-template-columns:1fr;}
 }
 
-@media (max-width:760px){
+@media (max-width:900px){
   .menu-toggle{display:flex;}
+  .menu-direita{gap:10px;}
+  .idioma{padding:6px 9px;font-size:.6rem;}
   .menu-links{
     position:absolute;
     top:100%;left:0;right:0;
@@ -1332,6 +1392,18 @@ section{padding:68px 0;}
   .trabalhos-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;}
   .rodape .container{flex-direction:column;align-items:flex-start;}
   .cafe-selo{width:52px;height:52px;font-size:1.15rem;}
+}
+
+
+/* no celular o header fica apertado: nome menor e idioma compacto */
+@media (max-width:480px){
+  .menu-inner{padding:11px 14px;gap:8px;}
+  .menu-nome{font-size:1.12rem;}
+  .menu-nome small{display:none;}
+  .idiomas{padding:2px;}
+  .idioma{padding:5px 7px;font-size:.58rem;gap:4px;}
+  .idioma .bandeira{width:15px;height:10px;}
+  .menu-direita{gap:8px;}
 }
 
 @media (max-width:420px){
@@ -1367,19 +1439,45 @@ section{padding:68px 0;}
 <header class="menu">
   <div class="menu-inner">
     <a class="menu-nome" href="#capa">Thayane Teixeira<small>UGC Creator</small></a>
-    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="menuLinks" aria-label="Abrir menu de navegação">
-      <span></span>
-    </button>
-    <nav aria-label="Navegação principal">
-      <ul class="menu-links" id="menuLinks">
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#funil">Funil</a></li>
-        <li><a href="#trabalhos">Vídeos</a></li>
-        <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#numeros">Depoimentos</a></li>
-        <li><a href="#contato">Contato</a></li>
-      </ul>
-    </nav>
+    <div class="menu-direita">
+      <div class="idiomas" id="idiomas" role="group" aria-label="Idioma / Language">
+        <button type="button" class="idioma" data-idioma="pt" aria-pressed="true" lang="pt-BR">
+          <svg class="bandeira" viewBox="0 0 24 16" aria-hidden="true" focusable="false">
+            <rect width="24" height="16" fill="#009C3B"/>
+            <path d="M12 2.2 21.6 8 12 13.8 2.4 8z" fill="#FFDF00"/>
+            <circle cx="12" cy="8" r="3.3" fill="#002776"/>
+          </svg>PT
+        </button>
+        <button type="button" class="idioma" data-idioma="en" aria-pressed="false" lang="en">
+          <svg class="bandeira" viewBox="0 0 24 16" aria-hidden="true" focusable="false">
+            <rect width="24" height="16" fill="#FFFFFF"/>
+            <g fill="#B22234">
+              <rect y="0" width="24" height="1.23"/>
+              <rect y="2.46" width="24" height="1.23"/>
+              <rect y="4.92" width="24" height="1.23"/>
+              <rect y="7.38" width="24" height="1.23"/>
+              <rect y="9.85" width="24" height="1.23"/>
+              <rect y="12.31" width="24" height="1.23"/>
+              <rect y="14.77" width="24" height="1.23"/>
+            </g>
+            <rect width="10" height="8.6" fill="#3C3B6E"/>
+          </svg>EN
+        </button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="menuLinks" data-i18n-aria="menu.abrir" aria-label="Abrir menu de navegação">
+        <span></span>
+      </button>
+      <nav aria-label="Navegação principal">
+        <ul class="menu-links" id="menuLinks">
+          <li><a href="#sobre" data-i18n="menu.sobre">Sobre</a></li>
+          <li><a href="#funil" data-i18n="menu.funil">Funil</a></li>
+          <li><a href="#trabalhos" data-i18n="menu.videos">Vídeos</a></li>
+          <li><a href="#servicos" data-i18n="menu.servicos">Serviços</a></li>
+          <li><a href="#numeros" data-i18n="menu.depoimentos">Depoimentos</a></li>
+          <li><a href="#contato" data-i18n="menu.contato">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </header>
 
@@ -1392,12 +1490,12 @@ section{padding:68px 0;}
       <div>
         <span class="section-tag">UGC Creator &middot; Rio de Janeiro</span>
         <h1>Thayane<em>Teixeira</em></h1>
-        <p class="capa-frase">Maternidade que inspira, tecnologia que facilita. Radar de beleza e bem estar para lares conectados. <span class="emoji" aria-hidden="true">☕</span></p>
-        <p class="capa-assinatura">Mamãe do Heitor, Carioca da Gema. <span class="emoji" aria-hidden="true">🤎</span></p>
+        <p class="capa-frase" data-i18n-html="capa.frase">Maternidade que inspira, tecnologia que facilita. Radar de beleza e bem estar para lares conectados. <span class="emoji" aria-hidden="true">☕</span></p>
+        <p class="capa-assinatura" data-i18n-html="capa.assinatura">Mamãe do Heitor, Carioca da Gema. <span class="emoji" aria-hidden="true">🤎</span></p>
 
         <div class="capa-acoes">
-          <a class="btn btn--red" href="#contato">Vamos transformar sua marca</a>
-          <a class="btn" href="#trabalhos">Ver os vídeos</a>
+          <a class="btn btn--red" href="#contato" data-i18n="capa.btn1">Vamos transformar sua marca</a>
+          <a class="btn" href="#trabalhos" data-i18n="capa.btn2">Ver os vídeos</a>
         </div>
       </div>
 
@@ -1405,7 +1503,7 @@ section{padding:68px 0;}
         <span class="cafe-selo" aria-hidden="true">☕</span>
         <picture>
           <source srcset="img/thayane-capa.webp" type="image/webp">
-          <img src="img/thayane-capa.jpg" alt="Thayane Teixeira, UGC Creator, sorrindo e usando óculos de armação tartan" width="1000" height="1250" fetchpriority="high">
+          <img src="img/thayane-capa.jpg" alt="Thayane Teixeira, UGC Creator, sorrindo e usando óculos de armação tartan" data-i18n-alt="capa.alt" width="1000" height="1250" fetchpriority="high">
         </picture>
         <figcaption>Thayane Teixeira &middot; UGC Creator</figcaption>
       </figure>
@@ -1422,8 +1520,8 @@ section{padding:68px 0;}
 <!-- ============ 2. SOBRE MIM ============ -->
 <section id="sobre">
   <div class="container">
-    <span class="section-tag">Sobre mim</span>
-    <h2 class="section-title">De seller de loja a creator de histórias</h2>
+    <span class="section-tag" data-i18n="sobre.tag">Sobre mim</span>
+    <h2 class="section-title" data-i18n="sobre.title">De seller de loja a creator de histórias</h2>
     <hr class="rule">
 
     <div class="sobre-grid">
@@ -1431,32 +1529,32 @@ section{padding:68px 0;}
         <span class="cafe-selo" aria-hidden="true">☕</span>
         <picture>
           <source srcset="img/thayane-sobre.jpg" type="image/jpeg">
-          <img src="img/thayane-sobre.jpg" alt="Thayane Teixeira, UGC Creator, sorrindo com os braços cruzados" width="1000" height="1250" loading="lazy">
+          <img src="img/thayane-sobre.jpg" alt="Thayane Teixeira, UGC Creator, sorrindo com os braços cruzados" data-i18n-alt="sobre.alt" width="1000" height="1250" loading="lazy">
         </picture>
         <figcaption>Thayane Teixeira &middot; UGC Creator</figcaption>
       </figure>
 
       <div class="ficha">
         <div class="ficha-body">
-          <p class="sobre-lead">Oi, eu sou a Thayane. 💫 Crio vídeos com a cara, a voz e o ritmo de quem realmente usa o produto, sem aquele tom de locução que ninguém aguenta até o final.</p>
+          <p class="sobre-lead" data-i18n="sobre.lead">Oi, eu sou a Thayane. 💫 Crio vídeos com a cara, a voz e o ritmo de quem realmente usa o produto, sem aquele tom de locução que ninguém aguenta até o final.</p>
 
           <ul class="sobre-dados">
-            <li>28 anos</li>
-            <li>Casada</li>
-            <li>Cristã</li>
-            <li>Mãe do Heitor</li>
+            <li data-i18n="sobre.dado1">28 anos</li>
+            <li data-i18n="sobre.dado2">Casada</li>
+            <li data-i18n="sobre.dado3">Cristã</li>
+            <li data-i18n="sobre.dado4">Mãe do Heitor</li>
           </ul>
 
-          <p>Antes disso, eu era empreendedora e vendia muito. Mais de 8 anos em vendas me ensinaram a entender pessoas, criar conexões e transformar necessidade em decisão. Quando transformei essa experiência em conteúdo, a venda virou estratégia, a comunicação virou história e o meu jeito de lidar com gente virou conexão.</p>
+          <p data-i18n="sobre.p1">Antes disso, eu era empreendedora e vendia muito. Mais de 8 anos em vendas me ensinaram a entender pessoas, criar conexões e transformar necessidade em decisão. Quando transformei essa experiência em conteúdo, a venda virou estratégia, a comunicação virou história e o meu jeito de lidar com gente virou conexão.</p>
 
-          <p>É assim que eu trabalho: pego uma experiência real e transformo em história que aproxima a marca da pessoa. Da maternidade que inspira à tecnologia que facilita, passando pela beleza e pelo bem-estar que deixam a rotina mais leve. 🤎</p>
+          <p data-i18n="sobre.p2">É assim que eu trabalho: pego uma experiência real e transformo em história que aproxima a marca da pessoa. Da maternidade que inspira à tecnologia que facilita, passando pela beleza e pelo bem-estar que deixam a rotina mais leve. 🤎</p>
 
-          <p class="sobre-fecho">Antes, eu vendia produtos. Hoje, crio histórias que fazem as pessoas quererem vivê-los.</p>
+          <p class="sobre-fecho" data-i18n="sobre.fecho">Antes, eu vendia produtos. Hoje, crio histórias que fazem as pessoas quererem vivê-los.</p>
 
           <ul class="promessas">
-            <li><b>Roteiro aprovado antes de gravar</b>Você lê, comenta e aprova. Nada de surpresas na hora da entrega.</li>
-            <li><b>Uma rodada de ajuste inclusa</b>Ajuste fino de texto, corte ou ritmo, sem custo extra.</li>
-            <li><b>Entrega em até 72 horas úteis</b>Prazo combinado e registrado por escrito em cada projeto.</li>
+            <li><b data-i18n="sobre.prom1t">Roteiro aprovado antes de gravar</b><span data-i18n="sobre.prom1d">Você lê, comenta e aprova. Nada de surpresas na hora da entrega.</span></li>
+            <li><b data-i18n="sobre.prom2t">Uma rodada de ajuste inclusa</b><span data-i18n="sobre.prom2d">Ajuste fino de texto, corte ou ritmo, sem custo extra.</span></li>
+            <li><b data-i18n="sobre.prom3t">Entrega em até 72 horas úteis</b><span data-i18n="sobre.prom3d">Prazo combinado e registrado por escrito em cada projeto.</span></li>
           </ul>
 
           <span class="assinatura">Thayane Teixeira <span class="emoji" aria-hidden="true">☕</span><small>UGC Creator &middot; Rio de Janeiro</small></span>
@@ -1469,14 +1567,14 @@ section{padding:68px 0;}
 <!-- ============ 3. DIREÇÃO CRIATIVA POR ETAPA DO FUNIL ============ -->
 <section id="funil">
   <div class="container">
-    <span class="section-tag">Direção criativa</span>
-    <h2 class="section-title">Um vídeo, uma etapa do funil</h2>
-    <p class="section-lead">Não é o mesmo vídeo mudando de legenda. Cada etapa do funil pede um ângulo, um formato e uma chamada diferentes. Escolha o roteiro que quer ver: topo, meio ou fundo.</p>    <hr class="rule">
+    <span class="section-tag" data-i18n="funil.tag">Direção criativa</span>
+    <h2 class="section-title" data-i18n="funil.title">Um vídeo, uma etapa do funil</h2>
+    <p class="section-lead" data-i18n="funil.lead">Não é o mesmo vídeo mudando de legenda. Cada etapa do funil pede um ângulo, um formato e uma chamada diferentes. Escolha o roteiro que quer ver: topo, meio ou fundo.</p>    <hr class="rule">
     <div class="funil-topo">
       <span class="funil-contador"><b id="funilContador">01</b> / 03</span>
       <div class="funil-nav">
-        <button type="button" id="funilAnt" aria-label="Ver o roteiro anterior">&#8249;</button>
-        <button type="button" id="funilProx" aria-label="Ver o próximo roteiro">&#8250;</button>
+        <button type="button" id="funilAnt" data-i18n-aria="funil.ant" aria-label="Ver o roteiro anterior">&#8249;</button>
+        <button type="button" id="funilProx" data-i18n-aria="funil.prox" aria-label="Ver o próximo roteiro">&#8250;</button>
       </div>
     </div>
     <div class="funil-grade">
@@ -1484,23 +1582,23 @@ section{padding:68px 0;}
         <div class="funil-palco" id="funilPalco">
           <!-- Os tres cartoes de video sao inseridos pelo JavaScript a partir do array FUNIL -->
         </div>
-        <a class="funil-ver" id="funilVer" href="#">Ver o vídeo <span aria-hidden="true">&#8599;</span></a>
+        <a class="funil-ver" id="funilVer" href="#" data-i18n-html="funil.ver">Ver o vídeo <span aria-hidden="true">&#8599;</span></a>
       </div>
       <div class="funil-info" id="funilInfo" aria-live="polite">
         <!-- A direcao criativa do roteiro selecionado entra aqui -->
       </div>
     </div>
-    <p class="funil-nota">Cada roteiro abaixo está pronto para gravar. Troque o link e a capa pelo seu vídeo real quando quiser publicar.</p>
+    <p class="funil-nota" data-i18n="funil.nota">Cada roteiro abaixo está pronto para gravar. Troque o link e a capa pelo seu vídeo real quando quiser publicar.</p>
   </div>
 </section>
 
 <!-- ============ 4. TRABALHOS POR NICHO ============ -->
 <section id="trabalhos">
   <div class="container">
-    <span class="section-tag">Vídeos por nicho</span>
-    <h2 class="section-title">Cada nicho, com a minha cara</h2>
-    <p class="section-lead">Escolha um nicho para ver só os vídeos dele. Cada capa abre o vídeo completo no YouTube.</p>    <hr class="rule">
-    <div class="filtros" id="filtros" role="group" aria-label="Filtrar trabalhos por nicho"></div>
+    <span class="section-tag" data-i18n="trab.tag">Vídeos por nicho</span>
+    <h2 class="section-title" data-i18n="trab.title">Cada nicho, com a minha cara</h2>
+    <p class="section-lead" data-i18n="trab.lead">Escolha um nicho para ver só os vídeos dele. Cada capa abre o vídeo completo no YouTube.</p>    <hr class="rule">
+    <div class="filtros" id="filtros" role="group" data-i18n-aria="trab.filtros" aria-label="Filtrar trabalhos por nicho"></div>
     <div class="trabalhos-grid" id="trabalhosGrid">
       <!-- Os trabalhos são inseridos pelo JavaScript a partir do array TRABALHOS -->
     </div>
@@ -1510,8 +1608,8 @@ section{padding:68px 0;}
 <!-- ============ 5. COMO EU TE AJUDO ============ -->
 <section id="servicos">
   <div class="container">
-    <span class="section-tag">Como eu te ajudo</span>
-    <h2 class="section-title">Seis formas de trabalharmos juntos</h2>    <hr class="rule">
+    <span class="section-tag" data-i18n="serv.tag">Como eu te ajudo</span>
+    <h2 class="section-title" data-i18n="serv.title">Seis formas de trabalharmos juntos</h2>    <hr class="rule">
     <div class="servicos-grid" id="servicosGrid">
       <!-- Os serviços são inseridos pelo JavaScript a partir do array SERVICOS -->
     </div>
@@ -1521,8 +1619,8 @@ section{padding:68px 0;}
 <!-- ============ 6. DEPOIMENTOS ============ -->
 <section id="numeros">
   <div class="container">
-    <span class="section-tag">Depoimentos</span>
-    <h2 class="section-title">O que dizem quem já trabalhou comigo</h2>    <hr class="rule">
+    <span class="section-tag" data-i18n="dep.tag">Depoimentos</span>
+    <h2 class="section-title" data-i18n="dep.title">O que dizem quem já trabalhou comigo</h2>    <hr class="rule">
 
     <div class="depoimentos-grid" id="depoimentosGrid">
       <!-- Os depoimentos são inseridos pelo JavaScript a partir do array DEPOIMENTOS -->
@@ -1533,9 +1631,9 @@ section{padding:68px 0;}
 <!-- ============ 7. BORA CRIAR JUNTOS ============ -->
 <section id="contato">
   <div class="container">
-    <span class="section-tag">Bora criar juntos</span>
-    <h2 class="section-title">Me conta o que você precisa gravar</h2>
-    <p class="section-lead">Respondo em até 24 horas úteis com um orçamento e um prazo de entrega.</p>
+    <span class="section-tag" data-i18n="ctt.tag">Bora criar juntos</span>
+    <h2 class="section-title" data-i18n="ctt.title">Me conta o que você precisa gravar</h2>
+    <p class="section-lead" data-i18n="ctt.lead">Respondo em até 24 horas úteis com um orçamento e um prazo de entrega.</p>
     <hr class="rule">
 
     <div class="contato-grid">
@@ -1543,19 +1641,19 @@ section{padding:68px 0;}
         <div class="ficha-body">
           <form id="formContato" novalidate>
             <div class="form-row">
-              <label for="ctNome">Seu nome</label>
-              <input type="text" id="ctNome" name="nome" placeholder="Como você quer ser chamado" required autocomplete="name">
+              <label for="ctNome" data-i18n="form.nome">Seu nome</label>
+              <input type="text" id="ctNome" name="nome" placeholder="Como você quer ser chamado" data-i18n-placeholder="form.nomePh" required autocomplete="name">
             </div>
             <div class="form-row">
-              <label for="ctEmail">Seu e-mail</label>
+              <label for="ctEmail" data-i18n="form.email">Seu e-mail</label>
               <input type="email" id="ctEmail" name="email" placeholder="seuemail@email.com" required autocomplete="email">
             </div>
             <div class="form-row">
-              <label for="ctMensagem">Sua mensagem</label>
-              <textarea id="ctMensagem" name="mensagem" placeholder="Conte o produto, o nicho, o formato do vídeo e o prazo" required></textarea>
+              <label for="ctMensagem" data-i18n="form.mensagem">Sua mensagem</label>
+              <textarea id="ctMensagem" name="mensagem" placeholder="Conte o produto, o nicho, o formato do vídeo e o prazo" data-i18n-placeholder="form.mensagemPh" required></textarea>
             </div>
-            <button class="btn btn--red" type="submit">Enviar mensagem</button>
-            <div class="form-status" id="formStatus" role="status" aria-live="polite" data-visivel="false">
+            <button class="btn btn--red" type="submit" data-i18n="form.enviar">Enviar mensagem</button>
+            <div class="form-status" id="formStatus" role="status" aria-live="polite" data-visivel="false" data-i18n="form.enviado">
               Mensagem enviada. Vou te responder em até 24 horas úteis.
             </div>
           </form>
@@ -1565,8 +1663,8 @@ section{padding:68px 0;}
       <div>
         <div class="ficha">
           <div class="ficha-body">
-            <span class="etiqueta">Atalhos</span>
-            <p class="legenda" style="margin-top:14px">Prefere resolver direto? Me chama por aqui.</p>
+            <span class="etiqueta" data-i18n="ctt.atalhos">Atalhos</span>
+            <p class="legenda" style="margin-top:14px" data-i18n="ctt.legenda">Prefere resolver direto? Me chama por aqui.</p>
             <div class="contato-links">
               <a href="https://wa.me/5521971646171" target="_blank" rel="noopener noreferrer">
                 <b>WhatsApp</b><span>(21) 97164-6171</span>
@@ -1595,29 +1693,29 @@ section{padding:68px 0;}
       <a href="https://instagram.com/thayane.ugc" target="_blank" rel="noopener noreferrer">Instagram</a>
       <a href="https://wa.me/5521971646171" target="_blank" rel="noopener noreferrer">WhatsApp</a>
       <a href="mailto:thayaneteixeiraugc@gmail.com">E-mail</a>
-      <a href="#contato">Bora criar juntos</a>
+      <a href="#contato" data-i18n="menu.contato">Bora criar juntos</a>
     </nav>
-    <div class="rodape-copy">&copy; <span id="anoAtual">2026</span> Thayane Teixeira. Todos os direitos reservados. Feito com café no Rio de Janeiro. ☕</div>
+    <div class="rodape-copy" data-i18n-html="rodape.copy">&copy; <span id="anoAtual">2026</span> Thayane Teixeira. Todos os direitos reservados. Feito com café no Rio de Janeiro. ☕</div>
   </div>
 </footer>
 
 <!-- ============ CARD DE CAPTURA (aparece após 7 segundos) ============ -->
 <div class="captura-fundo" id="capturaFundo" data-aberto="false" role="dialog" aria-modal="true" aria-labelledby="capturaTitulo" hidden>
   <div class="captura" id="capturaCard">
-    <button class="captura-fechar" id="capturaFechar" type="button" aria-label="Fechar">&times;</button>
-    <h3 id="capturaTitulo">Quer meu mídia kit completo? <span class="emoji" aria-hidden="true">☕</span></h3>
-    <p>Com o seu fingerprint de marca, o que está incluso em cada pacote e os formatos de entrega. É só deixar seu nome e e-mail aqui.</p>
+    <button class="captura-fechar" id="capturaFechar" type="button" data-i18n-aria="captura.fechar" aria-label="Fechar">&times;</button>
+    <h3 id="capturaTitulo" data-i18n-html="captura.titulo">Quer meu mídia kit completo? <span class="emoji" aria-hidden="true">☕</span></h3>
+    <p data-i18n="captura.texto">Com o seu fingerprint de marca, o que está incluso em cada pacote e os formatos de entrega. É só deixar seu nome e e-mail aqui.</p>
     <form id="formCaptura" novalidate>
       <div class="form-row">
-        <label for="capNome">Seu nome</label>
-        <input type="text" id="capNome" name="nome" placeholder="Como você quer ser chamado" required autocomplete="name">
+        <label for="capNome" data-i18n="form.nome">Seu nome</label>
+        <input type="text" id="capNome" name="nome" placeholder="Como você quer ser chamado" data-i18n-placeholder="form.nomePh" required autocomplete="name">
       </div>
       <div class="form-row">
-        <label for="capEmail">Seu e-mail</label>
+        <label for="capEmail" data-i18n="form.email">Seu e-mail</label>
         <input type="email" id="capEmail" name="email" placeholder="seuemail@email.com" required autocomplete="email">
       </div>
-      <button class="btn btn--red" type="submit">Quero receber</button>
-      <div class="captura-ok" id="capturaOk" role="status" aria-live="polite" data-visivel="false">
+      <button class="btn btn--red" type="submit" data-i18n="captura.btn">Quero receber</button>
+      <div class="captura-ok" id="capturaOk" role="status" aria-live="polite" data-visivel="false" data-i18n="captura.ok">
         Mídia kit a caminho do seu e-mail. Se não chegar em alguns minutos, me chama no WhatsApp.
       </div>
     </form>
@@ -1628,34 +1726,26 @@ section{padding:68px 0;}
 /* ============================================================
    DADOS DO PORTFÓLIO
    Tudo que você quer editar está nos arrays abaixo.
-   Troque os textos, links e caminhos de imagem direto aqui.
+   Cada texto vem em português e em inglês (campo { pt, en }):
+   quando você editar um, edite o outro junto.
    ============================================================ */
 
-/* DADOS PESSOAIS */
-const PERFIL = {
-  nome: "Thayane Teixeira",
-  cargo: "UGC Creator",
-  cidade: "Rio de Janeiro",
-  instagram: "@thayane.ugc",
-  instagramUrl: "https://instagram.com/thayane.ugc",
-  email: "thayaneteixeiraugc@gmail.com",
-  whatsapp: "5521971646171",
-  whatsappFormatado: "(21) 97164-6171",
-  frase: "Maternidade que inspira, tecnologia que facilita. Radar de beleza e bem estar para lares conectados."
-};
+/* NICHOS: os botoes de filtro da galeria de videos.
+   O primeiro item e o "Todos", que mostra a galeria inteira. */
+const NICHOS = [
+  { id:"Todos",     rotulo:{ pt:"Todos",     en:"All" } },
+  { id:"tech",      rotulo:{ pt:"tech",      en:"Tech" } },
+  { id:"casa",      rotulo:{ pt:"casa",      en:"Home" } },
+  { id:"bem estar", rotulo:{ pt:"bem estar", en:"Wellness" } },
+  { id:"beleza",    rotulo:{ pt:"beleza",    en:"Beauty" } }
+];
 
-/* NICHOS: os botoes de filtro da galeria de trabalhos.
-   O primeiro item e o "Todos", que mostra a galeria inteira.
-   Tech e o nicho de principal objetivo. */
-const NICHOS = ["Todos","tech","casa","bem estar","beleza"];
-
-/* FAIXA DA CAPA: os servicos que passam em movimento, sem parar.
-   Escreva em caixa alta, que o site formata sozinho. */
+/* FAIXA DA CAPA: os servicos que passam em movimento, sem parar. */
 const FAIXA_CAPA = [
-  "Conteúdo E-commerce",
-  "Storytelling Criativo",
-  "Conversão e Performance",
-  "Conteúdo humano e estratégico"
+  { pt:"Conteúdo E-commerce",      en:"E-commerce Content" },
+  { pt:"Storytelling Criativo",   en:"Creative Storytelling" },
+  { pt:"Conversão e Performance",  en:"Conversion & Performance" },
+  { pt:"Conteúdo humano e estratégico", en:"Human, strategic content" }
 ];
 
 /* FUNIL: um roteiro por etapa da jornada.
@@ -1665,47 +1755,65 @@ const FUNIL = [
   {
     link: "#",                              /* TROQUE AQUI pelo link do vídeo */
     capa: "",                              /* TROQUE AQUI pelo caminho da capa vertical 9:16 */
-    etapa: "Topo de funil",
-    duracao: "15 segundos",
-    reelsTexto: "Você também perde 20 minutos todo dia com isso?",
-    titulo: "O gancho que faz parar o scroll",
-    objetivo: "Gerar alcance e fazer a pessoa parar no vídeo antes de pensar em comprar.",
+    etapa: { pt:"Topo de funil", en:"Top of funnel" },
+    duracao: { pt:"15 segundos", en:"15 seconds" },
+    reelsTexto: { pt:"Você também perde 20 minutos todo dia com isso?", en:"Do you also waste 20 minutes a day on this?" },
+    titulo: { pt:"O gancho que faz parar o scroll", en:"The hook that stops the scroll" },
+    objetivo: { pt:"Gerar alcance e fazer a pessoa parar no vídeo antes de pensar em comprar.", en:"Drive reach and make people stop on the video before they ever think about buying." },
     passos: [
-      { nome:"Gancho",   texto:"Os 3 primeiros segundos mostram um incômodo real — a rotina antes do produto — e o produto ainda não aparece. A pessoa precisa se reconhecer antes de ouvir o nome da marca." },
-      { nome:"Formato",  texto:"Vídeo vertical de 15s, close no rosto, legenda grande no topo e sem trilha: só a minha voz e o som do ambiente." },
-      { nome:"Chamada",  texto:"Uma pergunta, não um pedido: 'Você também perde tempo com isso?'. O objetivo aqui é comentário e compartilhamento, não clique." }
+      { nome:{ pt:"Gancho",  en:"Hook" },
+        texto:{ pt:"Os 3 primeiros segundos mostram um incômodo real — a rotina antes do produto — e o produto ainda não aparece. A pessoa precisa se reconhecer antes de ouvir o nome da marca.",
+                en:"The first 3 seconds show a real annoyance — the routine before the product — and the product doesn't show up yet. People have to recognise themselves before they hear the brand name." } },
+      { nome:{ pt:"Formato", en:"Format" },
+        texto:{ pt:"Vídeo vertical de 15s, close no rosto, legenda grande no topo e sem trilha: só a minha voz e o som do ambiente.",
+                en:"15s vertical video, close-up on my face, big caption on top and no soundtrack: just my voice and the room sound." } },
+      { nome:{ pt:"Chamada", en:"Call to action" },
+        texto:{ pt:"Uma pergunta, não um pedido: 'Você também perde tempo com isso?'. O objetivo aqui é comentário e compartilhamento, não clique.",
+                en:"A question, not a request: 'Do you also waste time on this?'. The goal here is comments and shares, not clicks." } }
     ],
-    fecho: "Aqui eu não vendo nada. Eu só faço a pessoa parar."
+    fecho: { pt:"Aqui eu não vendo nada. Eu só faço a pessoa parar.", en:"I'm not selling anything here. I'm just making people stop." }
   },
   {
     link: "#",
     capa: "",
-    etapa: "Meio de funil",
-    duracao: "30 segundos",
-    reelsTexto: "Será que funciona na minha casa?",
-    titulo: "A prova que tira a dúvida",
-    objetivo: "Transformar curiosidade em confiança, mostrando o produto funcionando de verdade.",
+    etapa: { pt:"Meio de funil", en:"Middle of funnel" },
+    duracao: { pt:"30 segundos", en:"30 seconds" },
+    reelsTexto: { pt:"Será que funciona na minha casa?", en:"Will it actually work at home?" },
+    titulo: { pt:"A prova que tira a dúvida", en:"The proof that takes the doubt away" },
+    objetivo: { pt:"Transformar curiosidade em confiança, mostrando o produto funcionando de verdade.", en:"Turn curiosity into trust by showing the product really working." },
     passos: [
-      { nome:"Gancho",   texto:"A objeção mais comum da persona dita em voz alta nos 2 primeiros segundos: 'Será que funciona na minha casa?'" },
-      { nome:"Formato",  texto:"Demonstração real em 30s, sem roteiro decorado: produto na mão, rotina por perto e legenda explicando cada passo." },
-      { nome:"Chamada",  texto:"Convite de comentário ('me manda a sua dúvida') e marcação da marca. É conversa, não venda." }
+      { nome:{ pt:"Gancho",  en:"Hook" },
+        texto:{ pt:"A objeção mais comum da persona dita em voz alta nos 2 primeiros segundos: 'Será que funciona na minha casa?'",
+                en:"Your audience's most common objection said out loud in the first 2 seconds: 'Will it actually work at my place?'" } },
+      { nome:{ pt:"Formato", en:"Format" },
+        texto:{ pt:"Demonstração real em 30s, sem roteiro decorado: produto na mão, rotina por perto e legenda explicando cada passo.",
+                en:"Real 30s demo, not a scripted routine: product in hand, everyday setting close by and a caption explaining every step." } },
+      { nome:{ pt:"Chamada", en:"Call to action" },
+        texto:{ pt:"Convite de comentário ('me manda a sua dúvida') e marcação da marca. É conversa, não venda.",
+                en:"A comment invitation ('send me your question') plus a brand tag. It's a conversation, not a pitch." } }
     ],
-    fecho: "Mostrar o produto funcionando vale mais que qualquer legenda."
+    fecho: { pt:"Mostrar o produto funcionando vale mais que qualquer legenda.", en:"Showing the product working is worth more than any caption." }
   },
   {
     link: "#",
     capa: "",
-    etapa: "Fundo de funil",
-    duracao: "45 segundos",
-    reelsTexto: "O que ainda está segurando você de comprar?",
-    titulo: "A última objeção resolvida",
-    objetivo: "Converter quem já se interessou: tirar o medo que sobrou e levar à decisão.",
+    etapa: { pt:"Fundo de funil", en:"Bottom of funnel" },
+    duracao: { pt:"45 segundos", en:"45 seconds" },
+    reelsTexto: { pt:"O que ainda está segurando você de comprar?", en:"What's still holding you back from buying?" },
+    titulo: { pt:"A última objeção, resolvida", en:"The last objection, solved" },
+    objetivo: { pt:"Converter quem já está quase decidindo: tirar o resto da dúvida e facilitar a compra.", en:"Convert the people who are already close to deciding: remove the leftover doubt and make the purchase easy." },
     passos: [
-      { nome:"Gancho",   texto:"A objeção final da persona — preço, prazo ou risco — aparece na tela como pergunta e é respondida na primeira frase." },
-      { nome:"Formato",  texto:"Vídeo de 45s com prova real: o antes, o durante e o depois. A oferta aparece no fim, junto com o prazo." },
-      { nome:"Chamada",  texto:"Uma chamada única e clara: link na bio, com o prazo real. Nada de 'saiba mais' genérico." }
+      { nome:{ pt:"Gancho",  en:"Hook" },
+        texto:{ pt:"A objeção final da persona — preço, prazo ou risco — aparece na tela como pergunta e é respondida na primeira frase.",
+                en:"Your audience's final objection — price, timing or risk — shows up on screen as a question and is answered in the first sentence." } },
+      { nome:{ pt:"Formato", en:"Format" },
+        texto:{ pt:"Vídeo de 45s com prova real: antes, durante e depois. A oferta aparece no final, junto com o prazo.",
+                en:"45s video with real proof: before, during and after. The offer shows up at the end, together with the deadline." } },
+      { nome:{ pt:"Chamada", en:"Call to action" },
+        texto:{ pt:"Uma chamada clara: o link está na bio, com prazo de verdade. Nada de 'saiba mais' genérico.",
+                en:"One clear call to action: the link is in the bio, with a real deadline. No generic 'learn more'." } }
     ],
-    fecho: "Quem chega aqui já quer comprar. Meu trabalho é tirar o receio, não criar a vontade."
+    fecho: { pt:"Quem chega aqui já quer comprar. Meu trabalho é tirar o medo, não criar o desejo.", en:"People who reach this point already want to buy. My job is to take the fear away, not to create the desire." }
   }
 ];
 
@@ -1713,43 +1821,223 @@ const FUNIL = [
    "nicho" precisa bater exatamente com um item do array NICHOS.
    Troque "link" pelo endereco do video e "imagem" pela capa (4:5). */
 const TRABALHOS = [
-  { nicho:"tech",      titulo:"App de Treino — Boom Fit Club",    link:"https://www.youtube.com/shorts/UMPB5EiL8IU", imagem:"img/trabalhos/tech-1.jpg",      desc:"Roteiro em três atos: a pergunta, a resposta e o convite pra baixar o app." },
-  { nicho:"tech",      titulo:"Treinamento de Tech",               link:"https://www.youtube.com/shorts/WTk9wc-G-74", imagem:"img/trabalhos/tech-2.jpg",      desc:"Vídeo curto, direto para a câmera, mostrando o que o app faz na prática." },
-  { nicho:"tech",      titulo:"Grupo de Achadinhos",               link:"https://www.youtube.com/shorts/tsGwFMZ4oZA", imagem:"img/trabalhos/tech-3.jpg",      desc:"Os achados do TikTok Shop mostrados um a um, com reação real de quem está usando." },
-  { nicho:"tech",      titulo:"Luminárias Led — TikTok Shop",      link:"https://www.youtube.com/shorts/Sh-0TE9LbDk", imagem:"img/trabalhos/tech-4.jpg",      desc:"Unboxing de luminária comprada no TikTok Shop, com o produto na mão e o preço na tela." },
+  { nicho:"tech",      titulo:{ pt:"App de Treino — Boom Fit Club",    en:"Fitness App — Boom Fit Club" },   link:"https://www.youtube.com/shorts/UMPB5EiL8IU", imagem:"img/trabalhos/tech-1.jpg",      desc:{ pt:"Roteiro em três atos: a pergunta, a resposta e o convite pra baixar o app.", en:"A script in three acts: the question, the answer and the invitation to download the app." } },
+  { nicho:"tech",      titulo:{ pt:"Treinamento de Tech",               en:"Tech Training" },                    link:"https://www.youtube.com/shorts/WTk9wc-G-74", imagem:"img/trabalhos/tech-2.jpg",      desc:{ pt:"Vídeo curto, direto para a câmera, mostrando o que o app faz na prática.", en:"Short video, straight to camera, showing what the app actually does in practice." } },
+  { nicho:"tech",      titulo:{ pt:"Grupo de Achadinhos",               en:"Group Buys" },                       link:"https://www.youtube.com/shorts/tsGwFMZ4oZA", imagem:"img/trabalhos/tech-3.jpg",      desc:{ pt:"Os achados do TikTok Shop mostrados um a um, com reação real de quem está usando.", en:"The TikTok Shop finds shown one by one, with a real reaction from someone actually using them." } },
+  { nicho:"tech",      titulo:{ pt:"Luminárias Led — TikTok Shop",      en:"LED Lights — TikTok Shop" },         link:"https://www.youtube.com/shorts/Sh-0TE9LbDk", imagem:"img/trabalhos/tech-4.jpg",      desc:{ pt:"Unboxing de luminária comprada no TikTok Shop, com o produto na mão e o preço na tela.", en:"Unboxing of a light bought on TikTok Shop, with the product in hand and the price on screen." } },
 
-  { nicho:"casa",      titulo:"Café e Filtro Pimpinela",           link:"https://www.youtube.com/shorts/2MmncJEkHY8", imagem:"img/trabalhos/casa-1.jpg",      desc:"Café na rotina da manhã: filtro, pó e o primeiro gole sem pressa. ☕" },
-  { nicho:"casa",      titulo:"Mini Liquidificador — Electrolux",  link:"https://www.youtube.com/shorts/Fhpx6FtUfRQ", imagem:"img/trabalhos/casa-2.jpg",      desc:"Liquidificador pequeno, uso real e o resultado na hora — sem roteiro decorado." },
-  { nicho:"casa",      titulo:"Sabão Líquido e Amaciante — Koala", link:"https://www.youtube.com/shorts/DwWM7mwuwB0", imagem:"img/trabalhos/casa-3.jpg",      desc:"Cheiro que fica na roupa: o antes e o depois da mesma lavagem, sem corte." },
-  { nicho:"casa",      titulo:"Saco de Lixo Perfumado",            link:"https://www.youtube.com/shorts/XCN3GYoHTTc", imagem:"img/trabalhos/casa-4.jpg",      desc:"O detalhe que ninguém comenta: o lixo da casa também pode ter perfume." },
+  { nicho:"casa",      titulo:{ pt:"Café e Filtro Pimpinela",           en:"Coffee & Pimpinela Filter" },        link:"https://www.youtube.com/shorts/2MmncJEkHY8", imagem:"img/trabalhos/casa-1.jpg",      desc:{ pt:"Café na rotina da manhã: filtro, pó e o primeiro gole sem pressa. ☕", en:"Coffee in the morning routine: filter, grounds and the first sip with no rush. ☕" } },
+  { nicho:"casa",      titulo:{ pt:"Mini Liquidificador — Electrolux",  en:"Mini Blender — Electrolux" },        link:"https://www.youtube.com/shorts/Fhpx6FtUfRQ", imagem:"img/trabalhos/casa-2.jpg",      desc:{ pt:"Liquidificador pequeno, uso real e o resultado na hora — sem roteiro decorado.", en:"A small blender, real use and the result right away — no scripted routine." } },
+  { nicho:"casa",      titulo:{ pt:"Sabão Líquido e Amaciante — Koala", en:"Liquid Soap & Softener — Koala" },  link:"https://www.youtube.com/shorts/DwWM7mwuwB0", imagem:"img/trabalhos/casa-3.jpg",      desc:{ pt:"Cheiro que fica na roupa: o antes e o depois da mesma lavagem, sem corte.", en:"The scent that stays on the clothes: before and after of the same wash, no cut." } },
+  { nicho:"casa",      titulo:{ pt:"Saco de Lixo Perfumado",            en:"Scented Trash Bags" },                link:"https://www.youtube.com/shorts/XCN3GYoHTTc", imagem:"img/trabalhos/casa-4.jpg",      desc:{ pt:"O detalhe que ninguém comenta: o lixo da casa também pode ter perfume.", en:"The detail nobody talks about: your trash can can have a scent too." } },
 
-  { nicho:"bem estar", titulo:"Melatonina True",                   link:"https://www.youtube.com/shorts/GblC02SEGL8", imagem:"img/trabalhos/bem-estar-1.jpg", desc:"Rotina de sono com o produto na mesa de cabeceira e a noite quieta." },
-  { nicho:"bem estar", titulo:"Wey Protein",                       link:"https://www.youtube.com/shorts/Q058l7Wx9Oc", imagem:"img/trabalhos/bem-estar-2.jpg", desc:"Scoop, shake e a pergunta que todo mundo faz sobre proteína." },
-  { nicho:"bem estar", titulo:"Creatina — Silva Nutrition",        link:"https://www.youtube.com/shorts/WL61na1f7xE", imagem:"img/trabalhos/bem-estar-3.jpg", desc:"Explicando o que é creatina, sem susto e sem promessa milagrosa." },
-  { nicho:"bem estar", titulo:"Multivitamínico Dux",               link:"https://www.youtube.com/shorts/LmAvsZUOhaY", imagem:"img/trabalhos/bem-estar-4.jpg", desc:"Uma rotina simples de suplementação, contada como quem vive o dia a dia." },
+  { nicho:"bem estar", titulo:{ pt:"Melatonina True",                   en:"True Melatonin" },                   link:"https://www.youtube.com/shorts/GblC02SEGL8", imagem:"img/trabalhos/bem-estar-1.jpg", desc:{ pt:"Rotina de sono com o produto na mesa de cabeceira e a noite quieta.", en:"A sleep routine with the product on the nightstand and a quiet night." } },
+  { nicho:"bem estar", titulo:{ pt:"Wey Protein",                       en:"Wey Protein" },                      link:"https://www.youtube.com/shorts/Q058l7Wx9Oc", imagem:"img/trabalhos/bem-estar-2.jpg", desc:{ pt:"Scoop, shake e a pergunta que todo mundo faz sobre proteína.", en:"Scoop, shake and the question everyone asks about protein." } },
+  { nicho:"bem estar", titulo:{ pt:"Creatina — Silva Nutrition",        en:"Creatine — Silva Nutrition" },       link:"https://www.youtube.com/shorts/WL61na1f7xE", imagem:"img/trabalhos/bem-estar-3.jpg", desc:{ pt:"Explicando o que é creatina, sem susto e sem promessa milagrosa.", en:"Explaining what creatine is, no scare tactics and no miracle promises." } },
+  { nicho:"bem estar", titulo:{ pt:"Multivitamínico Dux",               en:"Dux Multivitamin" },                 link:"https://www.youtube.com/shorts/LmAvsZUOhaY", imagem:"img/trabalhos/bem-estar-4.jpg", desc:{ pt:"Uma rotina simples de suplementação, contada como quem vive o dia a dia.", en:"A simple supplement routine, told the way you actually live your day." } },
 
-  { nicho:"beleza",    titulo:"Dove Sabonetes Serum — Unboxing",   link:"https://www.youtube.com/shorts/uBfpLo_VpA0", imagem:"img/trabalhos/beleza-1.jpg",    desc:"Abertura da caixa dos sabonetes serum, com a pele real em cena." },
-  { nicho:"beleza",    titulo:"Sabonetes Serum Dove — Review",     link:"https://www.youtube.com/shorts/DD53x3I9WOo", imagem:"img/trabalhos/beleza-2.jpg",    desc:"Review de verdade: o que eu gostei, o que não gostei e por quê." }
+  { nicho:"beleza",    titulo:{ pt:"Dove Sabonetes Serum — Unboxing",   en:"Dove Serum Soaps — Unboxing" },      link:"https://www.youtube.com/shorts/uBfpLo_VpA0", imagem:"img/trabalhos/beleza-1.jpg",    desc:{ pt:"Abertura da caixa dos sabonetes serum, com a pele real em cena.", en:"Opening the box of the serum soaps, with real skin on camera." } },
+  { nicho:"beleza",    titulo:{ pt:"Sabonetes Serum Dove — Review",     en:"Dove Serum Soaps — Review" },        link:"https://www.youtube.com/shorts/DD53x3I9WOo", imagem:"img/trabalhos/beleza-2.jpg",    desc:{ pt:"Review de verdade: o que eu gostei, o que não gostei e por quê.", en:"An honest review: what I liked, what I didn't and why." } }
 ];
-
 
 /* SERVIÇOS: os seis blocos da seção Como eu te ajudo. */
 const SERVICOS = [
-  { numero:"01", titulo:"Vídeo UGC",            desc:"Roteiro, gravação e edição de vídeo com a sua cara, no formato que o algoritmo prefere." },
-  { numero:"02", titulo:"Corte para anúncio",    desc:"Edição dinâmica com legenda, trilha e chamada para ação, pronta para tráfego pago." },
-  { numero:"03", titulo:"Fotos do produto",      desc:"Sequência de fotos estáticas do produto em uso, com a luz natural do dia a dia." },
-  { numero:"04", titulo:"Unboxing",              desc:"Abertura de caixa com reação real, foco nos detalhes e o produto no centro do frame." },
-  { numero:"05", titulo:"Publicação no meu perfil", desc:"Post publicado no meu perfil com a legenda, a hashtag e a primeira resposta nos comentários." },
-  { numero:"06", titulo:"Pacote mensal",         desc:"Volume combinado de peças por mês, com calendário de entregas e uma rodada de ajuste por peça." }
+  { numero:"01", titulo:{ pt:"Vídeo UGC", en:"UGC Video" },            desc:{ pt:"Roteiro, gravação e edição de vídeo com a sua cara, no formato que o algoritmo prefere.", en:"Script, filming and editing with my face, in the format the algorithm rewards." } },
+  { numero:"02", titulo:{ pt:"Corte para anúncio", en:"Ad Edit" },    desc:{ pt:"Edição dinâmica com legenda, trilha e chamada para ação, pronta para tráfego pago.", en:"Dynamic edit with captions, soundtrack and call to action, ready for paid traffic." } },
+  { numero:"03", titulo:{ pt:"Fotos do produto", en:"Product Photos" },desc:{ pt:"Sequência de fotos estáticas do produto em uso, com a luz natural do dia a dia.", en:"A set of stills of the product in use, with natural daylight." } },
+  { numero:"04", titulo:{ pt:"Unboxing", en:"Unboxing" },              desc:{ pt:"Abertura de caixa com reação real, foco nos detalhes e o produto no centro do frame.", en:"Opening the box with a real reaction, focus on the details and the product in the centre of the frame." } },
+  { numero:"05", titulo:{ pt:"Publicação no meu perfil", en:"Post on my profile" }, desc:{ pt:"Post publicado no meu perfil com a legenda, a hashtag e a primeira resposta nos comentários.", en:"Post published on my profile with the caption, the hashtag and the first comment reply." } },
+  { numero:"06", titulo:{ pt:"Pacote mensal", en:"Monthly package" }, desc:{ pt:"Volume combinado de peças por mês, com calendário de entregas e uma rodada de ajuste por peça.", en:"An agreed number of pieces per month, with a delivery calendar and one round of revisions per piece." } }
 ];
 
 /* DEPOIMENTOS: as quatro falas de clientes. */
 const DEPOIMENTOS = [
-  { texto:"A Thayane entregou tudo no prazo, com um roteiro que eu só precisei aprovar. O vídeo ficou com a cara da nossa marca.", nome:"Cliente 01", empresa:"Marca 03" },
-  { texto:"Ela entende de anúncio de produto e não força a venda. O público sentiu isso nas métricas.", nome:"Cliente 02", empresa:"Marca 06" },
-  { texto:"O que mais me ganhou foi a organização: roteiro, gravação e corte, tudo no mesmo lugar e com data marcada.", nome:"Cliente 03", empresa:"Marca 09" },
-  { texto:"Recebi o kit com capa, métricas e depoimentos. Está pronto para mandar para o time inteiro.", nome:"Cliente 04", empresa:"Marca 12" }
+  { texto:{ pt:"A Thayane entregou tudo no prazo, com um roteiro que eu só precisei aprovar. O vídeo ficou com a cara da nossa marca.", en:"Thayane delivered everything on time, with a script I only had to approve. The video felt like our brand." }, nome:{ pt:"Cliente 01", en:"Client 01" }, empresa:{ pt:"Marca 03", en:"Brand 03" } },
+  { texto:{ pt:"Ela entende de anúncio de produto e não força a venda. O público sentiu isso nas métricas.", en:"She understands product ads and never forces the sale. The audience felt it in the numbers." }, nome:{ pt:"Cliente 02", en:"Client 02" }, empresa:{ pt:"Marca 06", en:"Brand 06" } },
+  { texto:{ pt:"O que mais me ganhou foi a organização: roteiro, gravação e corte, tudo no mesmo lugar e com data marcada.", en:"What won me over was the organisation: script, filming and edit, all in one place with a date on it." }, nome:{ pt:"Cliente 03", en:"Client 03" }, empresa:{ pt:"Marca 09", en:"Brand 09" } },
+  { texto:{ pt:"Recebi o kit com capa, métricas e depoimentos. Está pronto para mandar para o time inteiro.", en:"I got the kit with the cover, the metrics and the testimonials. It's ready to send to the whole team." }, nome:{ pt:"Cliente 04", en:"Client 04" }, empresa:{ pt:"Marca 12", en:"Brand 12" } }
 ];
+
+/* ============================================================
+   TEXTOS FIXOS DO SITE
+   Cada chave tem uma versão em português e outra em inglês.
+   O que estiver marcado com data-i18n no HTML é trocado aqui.
+   ============================================================ */
+const I18N = {
+  pt: {
+    metaTitulo:    "Thayane Teixeira | Portfólio UGC Creator",
+    metaDescricao: "Thayane Teixeira é UGC Creator no Rio de Janeiro. Vídeos UGC, cortes para anúncio, fotos de produto, unboxing e publicação para marcas de tech, casa, bem estar, beleza e maternidade.",
+    metaOg:        "Maternidade que inspira, tecnologia que facilita. Radar de beleza e bem estar para lares conectados. ☕",
+
+    "menu.abrir":      "Abrir menu de navegação",
+    "menu.fechar":     "Fechar menu de navegação",
+    "menu.sobre":      "Sobre",
+    "menu.funil":      "Funil",
+    "menu.videos":     "Vídeos",
+    "menu.servicos":   "Serviços",
+    "menu.depoimentos":"Depoimentos",
+    "menu.contato":    "Contato",
+
+    "capa.frase":      "Maternidade que inspira, tecnologia que facilita. Radar de beleza e bem estar para lares conectados. <span class=\"emoji\" aria-hidden=\"true\">☕</span>",
+    "capa.assinatura": "Mamãe do Heitor, Carioca da Gema. <span class=\"emoji\" aria-hidden=\"true\">🤎</span>",
+    "capa.btn1":       "Vamos transformar sua marca",
+    "capa.btn2":       "Ver os vídeos",
+    "capa.alt":        "Thayane Teixeira, UGC Creator, sorrindo e usando óculos de armação tartan",
+
+    "sobre.tag":    "Sobre mim",
+    "sobre.title":  "De seller de loja a creator de histórias",
+    "sobre.lead":   "Oi, eu sou a Thayane. 💫 Crio vídeos com a cara, a voz e o ritmo de quem realmente usa o produto, sem aquele tom de locução que ninguém aguenta até o final.",
+    "sobre.dado1":  "28 anos",
+    "sobre.dado2":  "Casada",
+    "sobre.dado3":  "Cristã",
+    "sobre.dado4":  "Mãe do Heitor",
+    "sobre.p1":     "Antes disso, eu era empreendedora e vendia muito. Mais de 8 anos em vendas me ensinaram a entender pessoas, criar conexões e transformar necessidade em decisão. Quando transformei essa experiência em conteúdo, a venda virou estratégia, a comunicação virou história e o meu jeito de lidar com gente virou conexão.",
+    "sobre.p2":     "É assim que eu trabalho: pego uma experiência real e transformo em história que aproxima a marca da pessoa. Da maternidade que inspira à tecnologia que facilita, passando pela beleza e pelo bem-estar que deixam a rotina mais leve. 🤎",
+    "sobre.fecho":  "Antes, eu vendia produtos. Hoje, crio histórias que fazem as pessoas quererem vivê-los.",
+    "sobre.prom1t": "Roteiro aprovado antes de gravar",
+    "sobre.prom1d": "Você lê, comenta e aprova. Nada de surpresas na hora da entrega.",
+    "sobre.prom2t": "Uma rodada de ajuste inclusa",
+    "sobre.prom2d": "Ajuste fino de texto, corte ou ritmo, sem custo extra.",
+    "sobre.prom3t": "Entrega em até 72 horas úteis",
+    "sobre.prom3d": "Prazo combinado e registrado por escrito em cada projeto.",
+    "sobre.alt":    "Thayane Teixeira, UGC Creator, sorrindo com os braços cruzados",
+
+    "funil.tag":  "Direção criativa",
+    "funil.title":"Um vídeo, uma etapa do funil",
+    "funil.lead": "Não é o mesmo vídeo mudando de legenda. Cada etapa do funil pede um ângulo, um formato e uma chamada diferentes. Escolha o roteiro que quer ver: topo, meio ou fundo.",
+    "funil.ant":  "Ver o roteiro anterior",
+    "funil.prox": "Ver o próximo roteiro",
+    "funil.ver":  "Ver o vídeo <span aria-hidden=\"true\">&#8599;</span>",
+    "funil.nota": "Cada roteiro abaixo está pronto para gravar. Troque o link e a capa pelo seu vídeo real quando quiser publicar.",
+    "funil.reel": "<strong>Seu reel aqui</strong>9:16",
+
+    "trab.tag":     "Vídeos por nicho",
+    "trab.title":   "Cada nicho, com a minha cara",
+    "trab.lead":    "Escolha um nicho para ver só os vídeos dele. Cada capa abre o vídeo completo no YouTube.",
+    "trab.filtros": "Filtrar trabalhos por nicho",
+    "trab.assistir":"Assistir no YouTube <span aria-hidden=\"true\">&#8599;</span>",
+    "trab.video":   "Vídeo",
+    "trab.capa":    "<strong>Capa do vídeo</strong>Formato 4:5",
+    "trab.assistirAria": "Assistir vídeo: ",
+
+    "serv.tag":   "Como eu te ajudo",
+    "serv.title": "Seis formas de trabalharmos juntos",
+
+    "dep.tag":   "Depoimentos",
+    "dep.title": "O que dizem quem já trabalhou comigo",
+
+    "ctt.tag":    "Bora criar juntos",
+    "ctt.title":  "Me conta o que você precisa gravar",
+    "ctt.lead":   "Respondo em até 24 horas úteis com um orçamento e um prazo de entrega.",
+    "ctt.atalhos":"Atalhos",
+    "ctt.legenda":"Prefere resolver direto? Me chama por aqui.",
+
+    "form.nome":      "Seu nome",
+    "form.email":     "Seu e-mail",
+    "form.mensagem":  "Sua mensagem",
+    "form.nomePh":    "Como você quer ser chamado",
+    "form.mensagemPh":"Conte o produto, o nicho, o formato do vídeo e o prazo",
+    "form.enviar":    "Enviar mensagem",
+    "form.enviado":   "Mensagem enviada. Vou te responder em até 24 horas úteis.",
+    "form.faltou":    "Preencha nome, e-mail e mensagem para eu te responder.",
+
+    "captura.titulo": "Quer meu mídia kit completo? <span class=\"emoji\" aria-hidden=\"true\">☕</span>",
+    "captura.texto":  "Com o seu fingerprint de marca, o que está incluso em cada pacote e os formatos de entrega. É só deixar seu nome e e-mail aqui.",
+    "captura.btn":    "Quero receber",
+    "captura.ok":     "Mídia kit a caminho do seu e-mail. Se não chegar em alguns minutos, me chama no WhatsApp.",
+    "captura.fechar": "Fechar",
+    "captura.faltou": "Preencha seu nome e e-mail para eu enviar o mídia kit.",
+
+    "rodape.copy": "&copy; <span id=\"anoAtual\">2026</span> Thayane Teixeira. Todos os direitos reservados. Feito com café no Rio de Janeiro. ☕"
+  },
+
+  en: {
+    metaTitulo:    "Thayane Teixeira | UGC Creator Portfolio",
+    metaDescricao: "Thayane Teixeira is a UGC Creator based in Rio de Janeiro. UGC videos, ad edits, product photos, unboxings and publishing for brands in tech, home, wellness, beauty and maternity.",
+    metaOg:        "Motherhood that inspires, technology that simplifies. Beauty and wellness radar for connected homes. ☕",
+
+    "menu.abrir":      "Open navigation menu",
+    "menu.fechar":     "Close navigation menu",
+    "menu.sobre":      "About",
+    "menu.funil":      "Funnel",
+    "menu.videos":     "Videos",
+    "menu.servicos":   "Services",
+    "menu.depoimentos":"Testimonials",
+    "menu.contato":    "Contact",
+
+    "capa.frase":      "Motherhood that inspires, technology that simplifies. Beauty and wellness radar for connected homes. <span class=\"emoji\" aria-hidden=\"true\">☕</span>",
+    "capa.assinatura": "Heitor's mom, born and raised in Rio. <span class=\"emoji\" aria-hidden=\"true\">🤎</span>",
+    "capa.btn1":       "Let's transform your brand",
+    "capa.btn2":       "Watch the videos",
+    "capa.alt":        "Thayane Teixeira, UGC Creator, smiling and wearing tartan-framed glasses",
+
+    "sobre.tag":    "About me",
+    "sobre.title":  "From shop seller to storyteller",
+    "sobre.lead":   "Hi, I'm Thayane. 💫 I make videos with the face, the voice and the pace of someone who really uses the product — with no voice-over tone anyone can sit through to the end.",
+    "sobre.dado1":  "28 years old",
+    "sobre.dado2":  "Married",
+    "sobre.dado3":  "Christian",
+    "sobre.dado4":  "Heitor's mom",
+    "sobre.p1":     "Before that, I was an entrepreneur and I sold a lot. More than 8 years in sales taught me how to read people, build connections and turn a need into a decision. When I turned that experience into content, selling became strategy, communication became storytelling and the way I deal with people became connection.",
+    "sobre.p2":     "This is how I work: I take a real experience and turn it into a story that brings the brand closer to the person. From motherhood that inspires to technology that makes life easier, through beauty and wellness that keep the day lighter. 🤎",
+    "sobre.fecho":  "I used to sell products. Now I create stories that make people want to live them.",
+    "sobre.prom1t": "Script approved before recording",
+    "sobre.prom1d": "You read it, comment and approve. No surprises on delivery day.",
+    "sobre.prom2t": "One round of revisions included",
+    "sobre.prom2d": "Fine-tuning of copy, edit or pacing, at no extra cost.",
+    "sobre.prom3t": "Delivery in up to 72 business hours",
+    "sobre.prom3d": "Timeline agreed and confirmed in writing on every project.",
+    "sobre.alt":    "Thayane Teixeira, UGC Creator, smiling with her arms crossed",
+
+    "funil.tag":  "Creative direction",
+    "funil.title":"One video, one stage of the funnel",
+    "funil.lead": "It's not the same video with a different caption. Each stage of the funnel asks for a different angle, format and call to action. Pick the script you want to see: top, middle or bottom.",
+    "funil.ant":  "See the previous script",
+    "funil.prox": "See the next script",
+    "funil.ver":  "Watch the video <span aria-hidden=\"true\">&#8599;</span>",
+    "funil.nota": "Every script below is ready to record. Swap the link and the cover for your real video whenever you want to publish it.",
+    "funil.reel": "<strong>Your reel here</strong>9:16",
+
+    "trab.tag":     "Videos by niche",
+    "trab.title":   "Every niche, with my face on it",
+    "trab.lead":    "Pick a niche to see only its videos. Every cover opens the full video on YouTube.",
+    "trab.filtros": "Filter videos by niche",
+    "trab.assistir":"Watch on YouTube <span aria-hidden=\"true\">&#8599;</span>",
+    "trab.video":   "Video",
+    "trab.capa":    "<strong>Video cover</strong>4:5 format",
+    "trab.assistirAria": "Watch video: ",
+
+    "serv.tag":   "How I can help",
+    "serv.title": "Six ways we can work together",
+
+    "dep.tag":   "Testimonials",
+    "dep.title": "What people who worked with me say",
+
+    "ctt.tag":    "Let's create together",
+    "ctt.title":  "Tell me what you need filmed",
+    "ctt.lead":   "I reply within 24 business hours with a quote and a delivery timeline.",
+    "ctt.atalhos":"Shortcuts",
+    "ctt.legenda":"Prefer to sort it out now? Message me right here.",
+
+    "form.nome":      "Your name",
+    "form.email":     "Your email",
+    "form.mensagem":  "Your message",
+    "form.nomePh":    "How you'd like to be called",
+    "form.mensagemPh":"Tell me the product, the niche, the video format and the deadline",
+    "form.enviar":    "Send message",
+    "form.enviado":   "Message sent. I'll get back to you within 24 business hours.",
+    "form.faltou":    "Fill in your name, email and message so I can reply.",
+
+    "captura.titulo": "Want my full media kit? <span class=\"emoji\" aria-hidden=\"true\">☕</span>",
+    "captura.texto":  "With your brand fingerprint, what's included in each package and the delivery formats. Just leave your name and email here.",
+    "captura.btn":    "Send it over",
+    "captura.ok":     "Your media kit is on its way to your inbox. If it doesn't arrive in a few minutes, message me on WhatsApp.",
+    "captura.fechar": "Close",
+    "captura.faltou": "Fill in your name and email so I can send the media kit.",
+
+    "rodape.copy": "&copy; <span id=\"anoAtual\">2026</span> Thayane Teixeira. All rights reserved. Made with coffee in Rio de Janeiro. ☕"
+  }
+};
 
 /* ============================================================
    FIM DOS DADOS
@@ -1776,7 +2064,7 @@ const DEPOIMENTOS = [
   function fecharMenu() {
     menuLinks.setAttribute("data-aberto", "false");
     menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Abrir menu de navegação");
+    menuToggle.setAttribute("aria-label", I18N[idiomaAtual]["menu.abrir"]);
   }
 
   menuToggle.addEventListener("click", function () {
@@ -1786,7 +2074,7 @@ const DEPOIMENTOS = [
     } else {
       menuLinks.setAttribute("data-aberto", "true");
       menuToggle.setAttribute("aria-expanded", "true");
-      menuToggle.setAttribute("aria-label", "Fechar menu de navegação");
+      menuToggle.setAttribute("aria-label", I18N[idiomaAtual]["menu.fechar"]);
     }
   });
 
@@ -1808,6 +2096,53 @@ const DEPOIMENTOS = [
     }
   });
 
+  /* ---------- IDIOMA: PT / EN ---------- */
+  let idiomaAtual = "pt";
+
+  /* pega o texto no idioma atual. Serve para os campos { pt, en } dos arrays. */
+  function T(campo) {
+    if (campo && typeof campo === "object") {
+      return campo[idiomaAtual] !== undefined ? campo[idiomaAtual] : campo.pt;
+    }
+    return campo;
+  }
+
+  /* nome do nicho no idioma atual (aparece no card e no filtro) */
+  function nomeNicho(id) {
+    for (let i = 0; i < NICHOS.length; i++) {
+      if (NICHOS[i].id === id) { return T(NICHOS[i].rotulo); }
+    }
+    return id;
+  }
+
+  /* ---------- ANIMAÇÃO DE ENTRADA ---------- */
+  let obsRevelar = null;
+
+  if ("IntersectionObserver" in window) {
+    obsRevelar = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (entrada) {
+        if (entrada.isIntersecting) {
+          entrada.target.classList.add("visivel");
+          obsRevelar.unobserve(entrada.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+  }
+
+  /* observa os cards recem-criados (chamado depois de cada redesenho) */
+  function observarRevelar() {
+    if (obsRevelar) {
+      $$(".revelar").forEach(function (el) {
+        if (!el.getAttribute("data-observado")) {
+          el.setAttribute("data-observado", "1");
+          obsRevelar.observe(el);
+        }
+      });
+    } else {
+      $$(".revelar").forEach(function (el) { el.classList.add("visivel"); });
+    }
+  }
+
   /* ---------- FAIXA DA CAPA ---------- */
   /* Monta duas copias identicas do trilho. A animacao desloca -50%,
      que leva a segunda copia exatamente para onde a primeira comecou,
@@ -1819,13 +2154,16 @@ const DEPOIMENTOS = [
     FAIXA_CAPA.forEach(function (item) {
       const span = document.createElement("span");
       span.className = "marca";
-      span.textContent = item;
+      span.textContent = T(item);
       trilho.appendChild(span);
     });
     return trilho;
   }
-  listaFaixa.appendChild(montarTrilho());
-  listaFaixa.appendChild(montarTrilho());
+  function montarFaixa() {
+    listaFaixa.innerHTML = "";
+    listaFaixa.appendChild(montarTrilho());
+    listaFaixa.appendChild(montarTrilho());
+  }
 
   /* ---------- FUNIL: um video na frente, os outros atras ---------- */
   const funilPalco    = $("#funilPalco");
@@ -1843,78 +2181,85 @@ const DEPOIMENTOS = [
   };
 
   /* monta os tres cartoes de video empilhados, no formato de post do reels */
-  FUNIL.forEach(function (f, indice) {
-    const card = document.createElement("div");
-    card.className = "funil-cartao";
-    card.dataset.indice = indice;
+  function montarFunil() {
+    funilPalco.innerHTML = "";
 
-    if (f.capa) {
-      /* Se houver imagem, ela entra aqui no lugar do degradê. */
-      const img = document.createElement("img");
-      img.className = "capa-img";
-      img.src = f.capa;
-      img.alt = "Capa do vídeo: " + f.titulo;
-      img.loading = "lazy";
-      card.appendChild(img);
-    } else {
-      const aviso = document.createElement("span");
-      aviso.className = "media-txt";
-      aviso.innerHTML = "<strong>Seu reel aqui</strong>9:16";
-      card.appendChild(aviso);
-    }
+    FUNIL.forEach(function (f, indice) {
+      const card = document.createElement("div");
+      card.className = "funil-cartao";
+      card.dataset.indice = indice;
 
-    const selo = document.createElement("span");
-    selo.className = "etapa-selo";
-    selo.textContent = f.etapa;
+      if (f.capa) {
+        /* Se houver imagem, ela entra aqui no lugar do degradê. */
+        const img = document.createElement("img");
+        img.className = "capa-img";
+        img.src = f.capa;
+        img.alt = T(f.titulo);
+        img.loading = "lazy";
+        card.appendChild(img);
+      } else {
+        const aviso = document.createElement("span");
+        aviso.className = "media-txt";
+        aviso.innerHTML = I18N[idiomaAtual]["funil.reel"];
+        card.appendChild(aviso);
+      }
 
-    const play = document.createElement("span");
-    play.className = "play";
-    play.setAttribute("aria-hidden", "true");
+      const selo = document.createElement("span");
+      selo.className = "etapa-selo";
+      selo.textContent = T(f.etapa);
 
-    const formato = document.createElement("span");
-    formato.className = "formato";
-    formato.textContent = f.duracao;
+      const play = document.createElement("span");
+      play.className = "play";
+      play.setAttribute("aria-hidden", "true");
 
-    /* acoes do reels, no canto direito */
-    const acoes = document.createElement("div");
-    acoes.className = "reels-acoes";
-    acoes.setAttribute("aria-hidden", "true");
-    [["curtir", "curtir"], ["comentar", "comentar"], ["enviar", "enviar"]].forEach(function (par) {
-      const acao = document.createElement("span");
-      acao.className = "reels-acao";
-      acao.innerHTML = ICONES_REELS[par[0]];
-      acoes.appendChild(acao);
+      const formato = document.createElement("span");
+      formato.className = "formato";
+      formato.textContent = T(f.duracao);
+
+      /* acoes do reels, no canto direito */
+      const acoes = document.createElement("div");
+      acoes.className = "reels-acoes";
+      acoes.setAttribute("aria-hidden", "true");
+      [["curtir", "curtir"], ["comentar", "comentar"], ["enviar", "enviar"]].forEach(function (par) {
+        const acao = document.createElement("span");
+        acao.className = "reels-acao";
+        acao.innerHTML = ICONES_REELS[par[0]];
+        acoes.appendChild(acao);
+      });
+      const mais = document.createElement("span");
+      mais.className = "reels-acao reels-acao--mais";
+      mais.innerHTML = ICONES_REELS.mais;
+      acoes.appendChild(mais);
+
+      /* rodape do post: quem postou e a legenda */
+      const rodape = document.createElement("div");
+      rodape.className = "reels-rodape";
+      const usuario = document.createElement("span");
+      usuario.className = "reels-user";
+      usuario.textContent = "@thayane.ugc";
+      const legenda = document.createElement("span");
+      legenda.className = "reels-legenda";
+      legenda.textContent = T(f.reelsTexto);
+      rodape.appendChild(usuario);
+      rodape.appendChild(legenda);
+
+      card.appendChild(selo);
+      card.appendChild(play);
+      card.appendChild(formato);
+      card.appendChild(acoes);
+      card.appendChild(rodape);
+
+      /* clicar num cartao de tras traz ele para a frente */
+      card.addEventListener("click", function () {
+        if (indice !== funilAtivo) { irParaFunil(indice); }
+      });
+
+      funilPalco.appendChild(card);
     });
-    const mais = document.createElement("span");
-    mais.className = "reels-acao reels-acao--mais";
-    mais.innerHTML = ICONES_REELS.mais;
-    acoes.appendChild(mais);
 
-    /* rodape do post: quem postou e a legenda */
-    const rodape = document.createElement("div");
-    rodape.className = "reels-rodape";
-    const usuario = document.createElement("span");
-    usuario.className = "reels-user";
-    usuario.textContent = "@thayane.ugc";
-    const legenda = document.createElement("span");
-    legenda.className = "reels-legenda";
-    legenda.textContent = f.reelsTexto;
-    rodape.appendChild(usuario);
-    rodape.appendChild(legenda);
-
-    card.appendChild(selo);
-    card.appendChild(play);
-    card.appendChild(formato);
-    card.appendChild(acoes);
-    card.appendChild(rodape);
-
-    /* clicar num cartao de tras traz ele para a frente */
-    card.addEventListener("click", function () {
-      if (indice !== funilAtivo) { irParaFunil(indice); }
-    });
-
-    funilPalco.appendChild(card);
-  });
+    irParaFunil(funilAtivo);
+    ajustarPalco();
+  }
 
   /* escreve a direcao criativa do roteiro que esta na frente */
   function montarInfoFunil(f) {
@@ -1922,14 +2267,14 @@ const DEPOIMENTOS = [
 
     const etapa = document.createElement("span");
     etapa.className = "funil-etapa";
-    etapa.textContent = f.etapa;
+    etapa.textContent = T(f.etapa);
 
     const titulo = document.createElement("h3");
-    titulo.textContent = f.titulo;
+    titulo.textContent = T(f.titulo);
 
     const obj = document.createElement("p");
     obj.className = "funil-obj";
-    obj.textContent = f.objetivo;
+    obj.textContent = T(f.objetivo);
 
     const passos = document.createElement("ol");
     passos.className = "funil-passos";
@@ -1937,9 +2282,9 @@ const DEPOIMENTOS = [
       const li = document.createElement("li");
       const bloco = document.createElement("div");
       const nome = document.createElement("b");
-      nome.textContent = p.nome;
+      nome.textContent = T(p.nome);
       const texto = document.createElement("span");
-      texto.textContent = p.texto;
+      texto.textContent = T(p.texto);
       bloco.appendChild(nome);
       bloco.appendChild(texto);
       li.appendChild(bloco);
@@ -1948,7 +2293,7 @@ const DEPOIMENTOS = [
 
     const fecho = document.createElement("p");
     fecho.className = "funil-fecho";
-    fecho.textContent = f.fecho;
+    fecho.textContent = T(f.fecho);
 
     funilInfo.appendChild(etapa);
     funilInfo.appendChild(titulo);
@@ -1975,7 +2320,6 @@ const DEPOIMENTOS = [
     funilVer.href = atual.link;
     funilVer.target = atual.link === "#" ? "_self" : "_blank";
     if (atual.link !== "#") { funilVer.rel = "noopener noreferrer"; }
-    funilVer.innerHTML = "Ver o vídeo <span aria-hidden=\"true\">&#8599;</span>";
   }
 
   /* o palco acompanha a altura do card da frente, em qualquer tela */
@@ -1987,111 +2331,112 @@ const DEPOIMENTOS = [
   $("#funilAnt").addEventListener("click", function () { irParaFunil(funilAtivo - 1); });
   $("#funilProx").addEventListener("click", function () { irParaFunil(funilAtivo + 1); });
 
-  irParaFunil(0);
-  ajustarPalco();
-  window.addEventListener("resize", ajustarPalco);
-
   /* ---------- FILTROS + TRABALHOS ---------- */
-  const filtrosBox   = $("#filtros");
-  const trabalhosGrid = $("#trabalhosGrid");
-  let nichoAtivo = NICHOS[0];
+  const filtrosBox     = $("#filtros");
+  const trabalhosGrid  = $("#trabalhosGrid");
+  let nichoAtivo = "Todos";
 
-  NICHOS.forEach(function (nicho) {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "filtro";
-    btn.textContent = nicho;
-    btn.setAttribute("data-nicho", nicho);
-    btn.setAttribute("aria-pressed", nicho === nichoAtivo ? "true" : "false");
-    btn.addEventListener("click", function () {
-      nichoAtivo = nicho;
-      $$(".filtro", filtrosBox).forEach(function (b) {
-        b.setAttribute("aria-pressed", b.getAttribute("data-nicho") === nicho ? "true" : "false");
+  function montarTrabalhos() {
+    filtrosBox.innerHTML = "";
+    trabalhosGrid.innerHTML = "";
+
+    NICHOS.forEach(function (nicho) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "filtro";
+      btn.textContent = T(nicho.rotulo);
+      btn.setAttribute("data-nicho", nicho.id);
+      btn.setAttribute("aria-pressed", nicho.id === nichoAtivo ? "true" : "false");
+      btn.addEventListener("click", function () {
+        nichoAtivo = nicho.id;
+        aplicarFiltro();
       });
-      aplicarFiltro();
+      filtrosBox.appendChild(btn);
     });
-    filtrosBox.appendChild(btn);
-  });
 
-  TRABALHOS.forEach(function (t) {
-    const art = document.createElement("article");
-    art.className = "trabalho revelar";
-    art.setAttribute("data-nicho", t.nicho);
+    TRABALHOS.forEach(function (t) {
+      const art = document.createElement("article");
+      art.className = "trabalho revelar";
+      art.setAttribute("data-nicho", t.nicho);
 
-    const fig = document.createElement("figure");
-    fig.style.margin = "0";
+      const fig = document.createElement("figure");
+      fig.style.margin = "0";
 
-    const thumb = document.createElement("div");
-    thumb.className = "thumb";
+      const thumb = document.createElement("div");
+      thumb.className = "thumb";
 
-    /* o card inteiro leva pro video no YouTube */
-    const link = document.createElement("a");
-    link.className = "thumb-link";
-    link.href = t.link;                     /* <<< LINK DO VÍDEO entra aqui */
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.setAttribute("aria-label", "Assistir vídeo: " + t.titulo);
+      /* o card inteiro leva pro video no YouTube */
+      const link = document.createElement("a");
+      link.className = "thumb-link";
+      link.href = t.link;                     /* <<< LINK DO VÍDEO entra aqui */
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.setAttribute("aria-label", I18N[idiomaAtual]["trab.assistirAria"] + T(t.titulo));
 
-    if (t.imagem) {
-      /* A capa entra aqui, em 4:5, sem perder a qualidade. */
-      const img = document.createElement("img");
-      img.src = t.imagem;
-      img.alt = "Capa do vídeo: " + t.titulo;
-      img.loading = "lazy";
-      img.style.width = "100%";
-      img.style.height = "100%";
-      img.style.objectFit = "cover";
-      link.appendChild(img);
-    } else {
-      const aviso = document.createElement("span");
-      aviso.className = "media-txt";
-      aviso.innerHTML = "<strong>Capa do vídeo</strong>Formato 4:5";
-      link.appendChild(aviso);
-    }
+      if (t.imagem) {
+        /* A capa entra aqui, em 4:5, sem perder a qualidade. */
+        const img = document.createElement("img");
+        img.src = t.imagem;
+        img.alt = T(t.titulo);
+        img.loading = "lazy";
+        img.style.width = "100%";
+        img.style.height = "100%";
+        img.style.objectFit = "cover";
+        link.appendChild(img);
+      } else {
+        const aviso = document.createElement("span");
+        aviso.className = "media-txt";
+        aviso.innerHTML = I18N[idiomaAtual]["trab.capa"];
+        link.appendChild(aviso);
+      }
 
-    const play = document.createElement("span");
-    play.className = "play-mini";
-    play.setAttribute("aria-hidden", "true");
-    link.appendChild(play);
+      const play = document.createElement("span");
+      play.className = "play-mini";
+      play.setAttribute("aria-hidden", "true");
+      link.appendChild(play);
 
-    const formato = document.createElement("span");
-    formato.className = "formato";
-    formato.textContent = "Vídeo";
-    link.appendChild(formato);
+      const formato = document.createElement("span");
+      formato.className = "formato";
+      formato.textContent = I18N[idiomaAtual]["trab.video"];
+      link.appendChild(formato);
 
-    thumb.appendChild(link);
+      thumb.appendChild(link);
 
-    const cap = document.createElement("figcaption");
-    const capLink = document.createElement("a");
-    capLink.href = t.link;
-    capLink.target = "_blank";
-    capLink.rel = "noopener noreferrer";
-    capLink.innerHTML = "Assistir no YouTube <span aria-hidden=\"true\">&#8599;</span>";
-    cap.appendChild(capLink);
-    fig.appendChild(thumb);
-    fig.appendChild(cap);
+      const cap = document.createElement("figcaption");
+      const capLink = document.createElement("a");
+      capLink.href = t.link;
+      capLink.target = "_blank";
+      capLink.rel = "noopener noreferrer";
+      capLink.innerHTML = I18N[idiomaAtual]["trab.assistir"];
+      cap.appendChild(capLink);
+      fig.appendChild(thumb);
+      fig.appendChild(cap);
 
-    const corpo = document.createElement("div");
-    corpo.className = "trabalho-corpo";
+      const corpo = document.createElement("div");
+      corpo.className = "trabalho-corpo";
 
-    const h3 = document.createElement("h3");
-    h3.textContent = t.titulo;
+      const h3 = document.createElement("h3");
+      h3.textContent = T(t.titulo);
 
-    const meta = document.createElement("div");
-    meta.className = "meta";
-    meta.textContent = t.nicho;
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.textContent = nomeNicho(t.nicho);
 
-    const p = document.createElement("p");
-    p.textContent = t.desc;
+      const p = document.createElement("p");
+      p.textContent = T(t.desc);
 
-    corpo.appendChild(h3);
-    corpo.appendChild(meta);
-    corpo.appendChild(p);
+      corpo.appendChild(h3);
+      corpo.appendChild(meta);
+      corpo.appendChild(p);
 
-    art.appendChild(fig);
-    art.appendChild(corpo);
-    trabalhosGrid.appendChild(art);
-  });
+      art.appendChild(fig);
+      art.appendChild(corpo);
+      trabalhosGrid.appendChild(art);
+    });
+
+    aplicarFiltro();
+    observarRevelar();
+  }
 
   function aplicarFiltro() {
     let visiveis = 0;
@@ -2105,64 +2450,142 @@ const DEPOIMENTOS = [
       b.setAttribute("aria-pressed", ativo ? "true" : "false");
     });
   }
-  aplicarFiltro();
 
   /* ---------- SERVIÇOS ---------- */
   const servicosGrid = $("#servicosGrid");
-  SERVICOS.forEach(function (s) {
-    const card = document.createElement("article");
-    card.className = "servico revelar";
+  function montarServicos() {
+    servicosGrid.innerHTML = "";
+    SERVICOS.forEach(function (s) {
+      const card = document.createElement("article");
+      card.className = "servico revelar";
 
-    const num = document.createElement("span");
-    num.className = "servico-num";
-    num.textContent = s.numero;
+      const num = document.createElement("span");
+      num.className = "servico-num";
+      num.textContent = s.numero;
 
-    const h3 = document.createElement("h3");
-    h3.textContent = s.titulo;
+      const h3 = document.createElement("h3");
+      h3.textContent = T(s.titulo);
 
-    const p = document.createElement("p");
-    p.textContent = s.desc;
+      const p = document.createElement("p");
+      p.textContent = T(s.desc);
 
-    card.appendChild(num);
-    card.appendChild(h3);
-    card.appendChild(p);
-    servicosGrid.appendChild(card);
-  });
+      card.appendChild(num);
+      card.appendChild(h3);
+      card.appendChild(p);
+      servicosGrid.appendChild(card);
+    });
+    observarRevelar();
+  }
 
   /* ---------- DEPOIMENTOS ---------- */
   const depoimentosGrid = $("#depoimentosGrid");
-  DEPOIMENTOS.forEach(function (d) {
-    const card = document.createElement("figure");
-    card.className = "depoimento revelar";
-    card.style.margin = "0";
+  function montarDepoimentos() {
+    depoimentosGrid.innerHTML = "";
+    DEPOIMENTOS.forEach(function (d) {
+      const card = document.createElement("figure");
+      card.className = "depoimento revelar";
+      card.style.margin = "0";
 
-    const p = document.createElement("blockquote");
-    p.style.margin = "0";
-    p.innerHTML = "<p>" + esc(d.texto) + "</p>";
+      const p = document.createElement("blockquote");
+      p.style.margin = "0";
+      p.innerHTML = "<p>" + esc(T(d.texto)) + "</p>";
 
-    const foot = document.createElement("footer");
-    foot.innerHTML = "<b>" + esc(d.nome) + "</b> &middot; " + esc(d.empresa);
+      const foot = document.createElement("footer");
+      foot.innerHTML = "<b>" + esc(T(d.nome)) + "</b> &middot; " + esc(T(d.empresa));
 
-    card.appendChild(p);
-    card.appendChild(foot);
-    depoimentosGrid.appendChild(card);
+      card.appendChild(p);
+      card.appendChild(foot);
+      depoimentosGrid.appendChild(card);
+    });
+    observarRevelar();
+  }
+
+  /* ---------- TROCAR DE IDIOMA ---------- */
+  function aplicarIdioma(novo) {
+    idiomaAtual = novo;
+    const d = I18N[novo];
+
+    document.documentElement.lang = novo === "pt" ? "pt-BR" : "en";
+
+    $$("[data-i18n]").forEach(function (el) {
+      const chave = el.getAttribute("data-i18n");
+      if (d[chave] !== undefined) { el.textContent = d[chave]; }
+    });
+    $$("[data-i18n-html]").forEach(function (el) {
+      const chave = el.getAttribute("data-i18n-html");
+      if (d[chave] !== undefined) { el.innerHTML = d[chave]; }
+    });
+    $$("[data-i18n-placeholder]").forEach(function (el) {
+      const chave = el.getAttribute("data-i18n-placeholder");
+      if (d[chave] !== undefined) { el.setAttribute("placeholder", d[chave]); }
+    });
+    $$("[data-i18n-aria]").forEach(function (el) {
+      const chave = el.getAttribute("data-i18n-aria");
+      if (d[chave] !== undefined) { el.setAttribute("aria-label", d[chave]); }
+    });
+    $$("[data-i18n-alt]").forEach(function (el) {
+      const chave = el.getAttribute("data-i18n-alt");
+      if (d[chave] !== undefined) { el.setAttribute("alt", d[chave]); }
+    });
+
+    /* titulo, descricao e ano */
+    $("#tituloPagina").textContent = d.metaTitulo;
+    $("#metaDescricao").setAttribute("content", d.metaDescricao);
+    $("#ogTitulo").setAttribute("content", d.metaTitulo);
+    $("#ogDescricao").setAttribute("content", d.metaOg);
+    const ano = $("#anoAtual");
+    if (ano) { ano.textContent = String(new Date().getFullYear()); }
+
+    /* o botao do menu volta a ter o rotulo certo */
+    menuToggle.setAttribute("aria-label", menuLinks.getAttribute("data-aberto") === "true" ? d["menu.fechar"] : d["menu.abrir"]);
+
+    /* botoes de idioma */
+    $$(".idioma").forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-idioma") === novo ? "true" : "false");
+    });
+
+    /* guarda quais cards ja estavam visiveis, para nao repetir a animacao
+       depois do redesenho (quem ja tinha visto continua visivel). */
+    const visiveisAntes = $$(".revelar").map(function (el) {
+      return el.classList.contains("visivel");
+    });
+
+    /* redesenha as listas no novo idioma */
+    montarFaixa();
+    montarFunil();
+    montarTrabalhos();
+    montarServicos();
+    montarDepoimentos();
+    ajustarPalco();
+
+    $$(".revelar").forEach(function (el, i) {
+      if (visiveisAntes[i]) { el.classList.add("visivel"); }
+    });
+
+    try { localStorage.setItem("idiomaSite", novo); } catch (e) {}
+  }
+
+  $$(".idioma").forEach(function (botao) {
+    botao.addEventListener("click", function () {
+      if (botao.getAttribute("data-idioma") !== idiomaAtual) {
+        aplicarIdioma(botao.getAttribute("data-idioma"));
+      }
+    });
   });
 
-  /* ---------- ANIMAÇÃO DE ENTRADA ---------- */
+  /* ---------- primeira montagem ---------- */
+  montarFaixa();
+  montarFunil();
+  montarTrabalhos();
+  montarServicos();
+  montarDepoimentos();
+  observarRevelar();
 
-  if ("IntersectionObserver" in window) {
-    const obsRevelar = new IntersectionObserver(function (entradas) {
-      entradas.forEach(function (entrada) {
-        if (entrada.isIntersecting) {
-          entrada.target.classList.add("visivel");
-          obsRevelar.unobserve(entrada.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
-
-    $$(".revelar").forEach(function (el) { obsRevelar.observe(el); });
-  } else {
-    $$(".revelar").forEach(function (el) { el.classList.add("visivel"); });
+  /* se a pessoa ja escolheu um idioma antes, respeita */
+  let idiomaSalvo = "";
+  try { idiomaSalvo = localStorage.getItem("idiomaSite") || ""; } catch (e) {}
+  if (idiomaSalvo === "en" || idiomaSalvo === "pt") {
+    aplicarIdioma(idiomaSalvo);
   }
 
   /* ---------- FORMULÁRIO DE CONTATO ---------- */
@@ -2176,7 +2599,7 @@ const DEPOIMENTOS = [
     const msg   = $("#ctMensagem").value.trim();
 
     if (!nome || !email || !msg) {
-      formStatus.textContent = "Preencha nome, e-mail e mensagem para eu te responder.";
+      formStatus.textContent = I18N[idiomaAtual]["form.faltou"];
       formStatus.style.background = "#f7ebe2";
       formStatus.style.borderColor = "#a47148";
       formStatus.style.color = "#60211a";
@@ -2184,7 +2607,7 @@ const DEPOIMENTOS = [
       return;
     }
 
-    formStatus.textContent = "Mensagem enviada. Vou te responder em até 24 horas úteis.";
+    formStatus.textContent = I18N[idiomaAtual]["form.enviado"];
     formStatus.style.background = "#eef3ea";
     formStatus.style.borderColor = "#7d9468";
     formStatus.style.color = "#3f5233";
@@ -2243,7 +2666,7 @@ const DEPOIMENTOS = [
     const email = $("#capEmail").value.trim();
 
     if (!nome || !email) {
-      capturaOk.textContent = "Preencha seu nome e e-mail para eu enviar o mídia kit.";
+      capturaOk.textContent = I18N[idiomaAtual]["captura.faltou"];
       capturaOk.style.background = "#f7ebe2";
       capturaOk.style.borderColor = "#a47148";
       capturaOk.style.color = "#60211a";
@@ -2254,7 +2677,7 @@ const DEPOIMENTOS = [
     $("#capNome").value = "";
     $("#capEmail").value = "";
     formCaptura.querySelector("button[type=submit]").style.display = "none";
-    capturaOk.textContent = "Mídia kit a caminho do seu e-mail. Se não chegar em alguns minutos, me chama no WhatsApp. ☕";
+    capturaOk.textContent = I18N[idiomaAtual]["captura.ok"] + " ☕";
     capturaOk.style.background = "#eef3ea";
     capturaOk.style.borderColor = "#7d9468";
     capturaOk.style.color = "#3f5233";
