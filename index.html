@@ -579,48 +579,106 @@ section{padding:68px 0;}
 /* ============================================================
    3. DIREÇÃO CRIATIVA POR ETAPA DO FUNIL
    ============================================================ */
-.funil-lista{
+.funil-grade{
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  gap:44px;
+  align-items:center;
+}
+.funil-topo{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:22px;
+}
+.funil-contador{
+  font-family:"Poppins",sans-serif;
+  font-size:.72rem;
+  font-weight:500;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.funil-contador b{color:var(--caramelo-escuro);font-weight:600;}
+.funil-nav{display:flex;gap:10px;}
+.funil-nav button{
+  width:42px;height:42px;
+  border-radius:50%;
+  border:1px solid var(--line-strong);
+  background:var(--creme-claro);
+  color:var(--cafe);
+  font-size:1.15rem;
+  line-height:1;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow-sm);
+  transition:transform .16s ease, background .16s ease, color .16s ease;
+}
+.funil-nav button:hover{transform:translate(-2px,-2px);background:var(--caramelo);color:var(--creme-claro);}
+.funil-nav button:focus-visible{outline:2px solid var(--caramelo);outline-offset:3px;}
+
+/* --- o palco: um cartao na frente, os outros atras --- */
+.funil-esquerda{
   display:flex;
   flex-direction:column;
-  gap:26px;
+  align-items:center;
 }
-.funil-card{
-  display:grid;
-  grid-template-columns:236px 1fr;
-  gap:30px;
-  align-items:start;
-  background:var(--creme-claro);
-  border:1px solid var(--line-strong);
-  border-left:5px solid var(--caramelo);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  padding:24px;
-  transition:transform .16s ease, box-shadow .16s ease;
-}
-.funil-card:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--cafe);}
-.funil-video{
+.funil-palco{
   position:relative;
+  width:100%;
+  height:520px;
+}
+.funil-cartao{
+  position:absolute;
+  top:0;left:0;
+  width:min(290px,78%);
   aspect-ratio:9/16;
-  background:linear-gradient(155deg,#e8d5bf 0%,#d8b08c 52%,#8a5a3c 100%);
   border-radius:var(--radius);
   overflow:hidden;
+  background:linear-gradient(155deg,#e8d5bf 0%,#d8b08c 52%,#8a5a3c 100%);
+  border:1px solid var(--line-strong);
+  box-shadow:var(--shadow);
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:flex-end;
-  padding-bottom:40px;
+  padding-bottom:30px;
+  cursor:pointer;
+  transition:transform .5s cubic-bezier(.22,.7,.28,1), opacity .5s ease, box-shadow .3s ease;
 }
-.funil-video .media-txt{
-  text-align:center;
-  padding:0 14px;
+.funil-cartao.frente{transform:translate(0,0) rotate(0deg) scale(1);z-index:3;opacity:1;cursor:default;}
+.funil-cartao.meio{transform:translate(30px,18px) rotate(4deg) scale(.93);z-index:2;opacity:.62;}
+.funil-cartao.fundo{transform:translate(56px,32px) rotate(7deg) scale(.86);z-index:1;opacity:.34;}
+.funil-cartao:hover{box-shadow:8px 8px 0 var(--cafe);}
+.funil-cartao .capa-img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
-.funil-video .play{
+.funil-cartao .etapa-selo{
+  position:absolute;
+  z-index:3;
+  top:12px;left:12px;
+  background:rgba(59,42,32,.78);
+  color:var(--creme);
+  font-family:"Poppins",sans-serif;
+  font-size:.56rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  padding:5px 11px;
+  border-radius:20px;
+}
+.funil-cartao .play{
   position:absolute;
   z-index:3;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  width:54px;height:54px;
+  width:56px;height:56px;
   border-radius:50%;
   border:1px solid var(--cafe);
   background:rgba(253,248,242,.94);
@@ -628,8 +686,8 @@ section{padding:68px 0;}
   box-shadow:var(--shadow-sm);
   transition:transform .16s ease, background .16s ease;
 }
-.funil-card:hover .funil-video .play{transform:translate(-50%,-50%) scale(1.1);background:var(--caramelo);}
-.funil-video .play::after{
+.funil-cartao.frente:hover .play{transform:translate(-50%,-50%) scale(1.1);background:var(--caramelo);}
+.funil-cartao .play::after{
   content:"";
   width:0;height:0;
   border-left:16px solid var(--cafe);
@@ -637,21 +695,111 @@ section{padding:68px 0;}
   border-bottom:10px solid transparent;
   margin-left:4px;
 }
-.funil-card:hover .funil-video .play::after{border-left-color:var(--creme-claro);}
-.funil-video .formato{
+.funil-cartao.frente:hover .play::after{border-left-color:var(--creme-claro);}
+.funil-cartao .media-txt{
   position:absolute;
-  z-index:3;
-  left:10px;bottom:10px;
-  background:rgba(59,42,32,.8);
+  z-index:2;
+  top:42%;
+  left:0;
+  right:0;
+  transform:translateY(-50%);
+  text-align:center;
+  padding:0 56px;
+  color:rgba(74,52,39,.62);
+  font-size:.6rem;
+}
+.funil-cartao .media-txt strong{
+  font-size:1.05rem;
+  color:rgba(74,52,39,.8);
+}
+/* --- acoes do lado direito, como no reels --- */
+.funil-cartao .reels-acoes{
+  position:absolute;
+  z-index:4;
+  right:10px;
+  bottom:96px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:16px;
+}
+.reels-acao{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  color:#fff;
+  font-family:"Poppins",sans-serif;
+  font-size:.52rem;
+  font-weight:500;
+  letter-spacing:.04em;
+  text-shadow:0 1px 6px rgba(40,25,16,.6);
+}
+.reels-acao svg{
+  width:21px;height:21px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 1px 4px rgba(40,25,16,.55));
+}
+.reels-acao--mais svg{stroke-width:2.4;}
+/* --- rodape do post: usuario e legenda --- */
+.funil-cartao .reels-rodape{
+  position:absolute;
+  z-index:4;
+  left:14px;
+  right:64px;
+  bottom:14px;
+  text-align:left;
+}
+.reels-user{
+  display:block;
+  font-family:"Poppins",sans-serif;
+  font-size:.66rem;
+  font-weight:600;
+  letter-spacing:.06em;
+  color:#fff;
+  text-shadow:0 1px 6px rgba(40,25,16,.6);
+}
+.reels-legenda{
+  display:block;
+  font-family:"Open Sans",Arial,sans-serif;
+  font-size:.72rem;
+  line-height:1.5;
+  color:rgba(255,255,255,.92);
+  text-shadow:0 1px 6px rgba(40,25,16,.6);
+  margin-top:3px;
+}
+.funil-cartao .formato{
+  position:absolute;
+  z-index:4;
+  top:12px;right:12px;
+  background:rgba(59,42,32,.78);
   color:var(--creme);
   font-family:"Poppins",sans-serif;
-  font-size:.56rem;
+  font-size:.54rem;
   font-weight:500;
   letter-spacing:.16em;
   text-transform:uppercase;
   padding:5px 10px;
   border-radius:20px;
 }
+.funil-ver{
+  display:inline-block;
+  margin-top:20px;
+  font-family:"Poppins",sans-serif;
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  text-decoration:none;
+  color:var(--caramelo-escuro);
+  border-bottom:1px solid var(--line-strong);
+  padding-bottom:3px;
+}
+.funil-ver:hover{color:var(--cafe);border-color:var(--caramelo);}
 .funil-info{min-width:0;}
 .funil-etapa{
   display:inline-block;
@@ -1100,8 +1248,10 @@ section{padding:68px 0;}
   .capa-grid{grid-template-columns:1fr;gap:30px;}
   .capa-foto{max-width:340px;margin:0 auto;}
   .sobre-grid{grid-template-columns:1fr;}
-  .funil-card{grid-template-columns:1fr;gap:22px;padding:20px;}
-  .funil-video{max-width:260px;margin:0 auto;}
+  .funil-grade{grid-template-columns:1fr;gap:30px;}
+  .funil-palco{height:440px;}
+  .funil-esquerda{order:1;}
+  .funil-info{order:2;}
   .servicos-grid{grid-template-columns:repeat(2,1fr);}
   .depoimentos-grid{grid-template-columns:1fr;}
   .contato-grid{grid-template-columns:1fr;}
@@ -1272,9 +1422,24 @@ section{padding:68px 0;}
   <div class="container">
     <span class="section-tag">Direção criativa</span>
     <h2 class="section-title">Um vídeo, uma etapa do funil</h2>
-    <p class="section-lead">Não é o mesmo vídeo mudando de legenda. Cada etapa do funil pede um ângulo, um formato e uma chamada diferentes. Estes são os meus três roteiros de referência: topo, meio e fundo.</p>    <hr class="rule">
-    <div class="funil-lista" id="funilLista">
-      <!-- Os roteiros são inseridos pelo JavaScript a partir do array FUNIL -->
+    <p class="section-lead">Não é o mesmo vídeo mudando de legenda. Cada etapa do funil pede um ângulo, um formato e uma chamada diferentes. Escolha o roteiro que quer ver: topo, meio ou fundo.</p>    <hr class="rule">
+    <div class="funil-topo">
+      <span class="funil-contador"><b id="funilContador">01</b> / 03</span>
+      <div class="funil-nav">
+        <button type="button" id="funilAnt" aria-label="Ver o roteiro anterior">&#8249;</button>
+        <button type="button" id="funilProx" aria-label="Ver o próximo roteiro">&#8250;</button>
+      </div>
+    </div>
+    <div class="funil-grade">
+      <div class="funil-esquerda">
+        <div class="funil-palco" id="funilPalco">
+          <!-- Os tres cartoes de video sao inseridos pelo JavaScript a partir do array FUNIL -->
+        </div>
+        <a class="funil-ver" id="funilVer" href="#">Ver o vídeo <span aria-hidden="true">&#8599;</span></a>
+      </div>
+      <div class="funil-info" id="funilInfo" aria-live="polite">
+        <!-- A direcao criativa do roteiro selecionado entra aqui -->
+      </div>
     </div>
     <p class="funil-nota">Cada roteiro abaixo está pronto para gravar. Troque o link e a capa pelo seu vídeo real quando quiser publicar.</p>
   </div>
@@ -1453,6 +1618,7 @@ const FUNIL = [
     capa: "",                              /* TROQUE AQUI pelo caminho da capa vertical 9:16 */
     etapa: "Topo de funil",
     duracao: "15 segundos",
+    reelsTexto: "Você também perde 20 minutos todo dia com isso?",
     titulo: "O gancho que faz parar o scroll",
     objetivo: "Gerar alcance e fazer a pessoa parar no vídeo antes de pensar em comprar.",
     passos: [
@@ -1467,6 +1633,7 @@ const FUNIL = [
     capa: "",
     etapa: "Meio de funil",
     duracao: "30 segundos",
+    reelsTexto: "Será que funciona na minha casa?",
     titulo: "A prova que tira a dúvida",
     objetivo: "Transformar curiosidade em confiança, mostrando o produto funcionando de verdade.",
     passos: [
@@ -1481,6 +1648,7 @@ const FUNIL = [
     capa: "",
     etapa: "Fundo de funil",
     duracao: "45 segundos",
+    reelsTexto: "O que ainda está segurando você de comprar?",
     titulo: "A última objeção resolvida",
     objetivo: "Converter quem já se interessou: tirar o medo que sobrou e levar à decisão.",
     passos: [
@@ -1606,51 +1774,98 @@ const DEPOIMENTOS = [
   listaFaixa.appendChild(montarTrilho());
   listaFaixa.appendChild(montarTrilho());
 
-  /* ---------- FUNIL ---------- */
-  const funilLista = $("#funilLista");
+  /* ---------- FUNIL: um video na frente, os outros atras ---------- */
+  const funilPalco    = $("#funilPalco");
+  const funilInfo     = $("#funilInfo");
+  const funilContador = $("#funilContador");
+  const funilVer      = $("#funilVer");
+  let funilAtivo = 0;
 
+  /* icones do reels, no mesmo desenho do instagram */
+  const ICONES_REELS = {
+    curtir: '<svg viewBox="0 0 24 24"><path d="M12 20.3s-7.2-4.5-7.2-9.5A4.1 4.1 0 0 1 12 8a4.1 4.1 0 0 1 7.2 2.8c0 5-7.2 9.5-7.2 9.5z"/></svg>',
+    comentar: '<svg viewBox="0 0 24 24"><path d="M4 4.5h16v11H9.5L4 20V4.5z"/></svg>',
+    enviar: '<svg viewBox="0 0 24 24"><path d="M4 12v6.5a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V12"/><path d="M12 15V3.5"/><path d="m7.5 8 4.5-4.5L16.5 8"/></svg>',
+    mais: '<svg viewBox="0 0 24 24"><path d="M5 12h.01"/><path d="M12 12h.01"/><path d="M19 12h.01"/></svg>'
+  };
+
+  /* monta os tres cartoes de video empilhados, no formato de post do reels */
   FUNIL.forEach(function (f, indice) {
-    const card = document.createElement("article");
-    card.className = "funil-card revelar";
-
-    /* --- o vídeo --- */
-    const link = document.createElement("a");
-    link.className = "funil-video";
-    link.href = f.link;                    /* <<< LINK DO VÍDEO entra aqui */
-    link.target = f.link === "#" ? "_self" : "_blank";
-    if (f.link !== "#") { link.rel = "noopener noreferrer"; }
-    link.setAttribute("aria-label", "Assistir vídeo: " + f.titulo);
+    const card = document.createElement("div");
+    card.className = "funil-cartao";
+    card.dataset.indice = indice;
 
     if (f.capa) {
       /* Se houver imagem, ela entra aqui no lugar do degradê. */
       const img = document.createElement("img");
+      img.className = "capa-img";
       img.src = f.capa;
       img.alt = "Capa do vídeo: " + f.titulo;
       img.loading = "lazy";
-      img.style.width = "100%";
-      img.style.height = "100%";
-      img.style.objectFit = "cover";
-      link.appendChild(img);
+      card.appendChild(img);
     } else {
       const aviso = document.createElement("span");
       aviso.className = "media-txt";
-      aviso.innerHTML = "<strong>Vídeo do roteiro</strong>Formato 9:16";
-      link.appendChild(aviso);
+      aviso.innerHTML = "<strong>Seu reel aqui</strong>9:16";
+      card.appendChild(aviso);
     }
+
+    const selo = document.createElement("span");
+    selo.className = "etapa-selo";
+    selo.textContent = f.etapa;
 
     const play = document.createElement("span");
     play.className = "play";
     play.setAttribute("aria-hidden", "true");
-    link.appendChild(play);
 
     const formato = document.createElement("span");
     formato.className = "formato";
     formato.textContent = f.duracao;
-    link.appendChild(formato);
 
-    /* --- a direção criativa --- */
-    const info = document.createElement("div");
-    info.className = "funil-info";
+    /* acoes do reels, no canto direito */
+    const acoes = document.createElement("div");
+    acoes.className = "reels-acoes";
+    acoes.setAttribute("aria-hidden", "true");
+    [["curtir", "curtir"], ["comentar", "comentar"], ["enviar", "enviar"]].forEach(function (par) {
+      const acao = document.createElement("span");
+      acao.className = "reels-acao";
+      acao.innerHTML = ICONES_REELS[par[0]];
+      acoes.appendChild(acao);
+    });
+    const mais = document.createElement("span");
+    mais.className = "reels-acao reels-acao--mais";
+    mais.innerHTML = ICONES_REELS.mais;
+    acoes.appendChild(mais);
+
+    /* rodape do post: quem postou e a legenda */
+    const rodape = document.createElement("div");
+    rodape.className = "reels-rodape";
+    const usuario = document.createElement("span");
+    usuario.className = "reels-user";
+    usuario.textContent = "@thayane.ugc";
+    const legenda = document.createElement("span");
+    legenda.className = "reels-legenda";
+    legenda.textContent = f.reelsTexto;
+    rodape.appendChild(usuario);
+    rodape.appendChild(legenda);
+
+    card.appendChild(selo);
+    card.appendChild(play);
+    card.appendChild(formato);
+    card.appendChild(acoes);
+    card.appendChild(rodape);
+
+    /* clicar num cartao de tras traz ele para a frente */
+    card.addEventListener("click", function () {
+      if (indice !== funilAtivo) { irParaFunil(indice); }
+    });
+
+    funilPalco.appendChild(card);
+  });
+
+  /* escreve a direcao criativa do roteiro que esta na frente */
+  function montarInfoFunil(f) {
+    funilInfo.innerHTML = "";
 
     const etapa = document.createElement("span");
     etapa.className = "funil-etapa";
@@ -1682,16 +1897,46 @@ const DEPOIMENTOS = [
     fecho.className = "funil-fecho";
     fecho.textContent = f.fecho;
 
-    info.appendChild(etapa);
-    info.appendChild(titulo);
-    info.appendChild(obj);
-    info.appendChild(passos);
-    info.appendChild(fecho);
+    funilInfo.appendChild(etapa);
+    funilInfo.appendChild(titulo);
+    funilInfo.appendChild(obj);
+    funilInfo.appendChild(passos);
+    funilInfo.appendChild(fecho);
+  }
 
-    card.appendChild(link);
-    card.appendChild(info);
-    funilLista.appendChild(card);
-  });
+  /* troca o video da frente e a direcao criativa correspondente */
+  function irParaFunil(indice) {
+    funilAtivo = (indice + FUNIL.length) % FUNIL.length;
+
+    const cartoes = funilPalco.querySelectorAll(".funil-cartao");
+    cartoes.forEach(function (c, i) {
+      const distancia = (i - funilAtivo + FUNIL.length) % FUNIL.length;
+      c.classList.remove("frente", "meio", "fundo");
+      c.classList.add(distancia === 0 ? "frente" : distancia === 1 ? "meio" : "fundo");
+    });
+
+    const atual = FUNIL[funilAtivo];
+    funilContador.textContent = String(funilAtivo + 1).padStart(2, "0");
+    montarInfoFunil(atual);
+
+    funilVer.href = atual.link;
+    funilVer.target = atual.link === "#" ? "_self" : "_blank";
+    if (atual.link !== "#") { funilVer.rel = "noopener noreferrer"; }
+    funilVer.innerHTML = "Ver o vídeo <span aria-hidden=\"true\">&#8599;</span>";
+  }
+
+  /* o palco acompanha a altura do card da frente, em qualquer tela */
+  function ajustarPalco() {
+    const card = funilPalco.querySelector(".funil-cartao.frente");
+    if (card) { funilPalco.style.height = (card.offsetHeight + 26) + "px"; }
+  }
+
+  $("#funilAnt").addEventListener("click", function () { irParaFunil(funilAtivo - 1); });
+  $("#funilProx").addEventListener("click", function () { irParaFunil(funilAtivo + 1); });
+
+  irParaFunil(0);
+  ajustarPalco();
+  window.addEventListener("resize", ajustarPalco);
 
   /* ---------- FILTROS + TRABALHOS ---------- */
   const filtrosBox   = $("#filtros");
