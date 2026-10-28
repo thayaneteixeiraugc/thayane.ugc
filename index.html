@@ -933,6 +933,55 @@ section{padding:68px 0;}
   padding:16px;
   text-align:center;
 }
+.trabalho .thumb-link{
+  position:absolute;
+  inset:0;
+  display:block;
+}
+.trabalho .play-mini{
+  position:absolute;
+  z-index:3;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:54px;height:54px;
+  border-radius:50%;
+  border:1px solid var(--cafe);
+  background:rgba(253,248,242,.92);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow-sm);
+  transition:transform .16s ease, background .16s ease;
+}
+.trabalho:hover .play-mini{transform:translate(-50%,-50%) scale(1.08);background:var(--caramelo);}
+.trabalho .play-mini::after{
+  content:"";
+  width:0;height:0;
+  border-left:15px solid var(--cafe);
+  border-top:9px solid transparent;
+  border-bottom:9px solid transparent;
+  margin-left:4px;
+}
+.trabalho:hover .play-mini::after{border-left-color:var(--creme-claro);}
+.trabalho .thumb .formato{
+  position:absolute;
+  z-index:3;
+  left:12px;bottom:12px;
+  background:rgba(59,42,32,.8);
+  color:var(--creme);
+  font-family:"Poppins",sans-serif;
+  font-size:.54rem;
+  font-weight:500;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  padding:5px 10px;
+  border-radius:20px;
+}
+.trabalho figcaption a{
+  color:inherit;
+  text-decoration:none;
+  border-bottom:1px solid var(--line-strong);
+  padding-bottom:2px;
+}
+.trabalho figcaption a:hover{color:var(--cafe);border-color:var(--caramelo);}
 .trabalho figcaption{
   padding:10px 14px;
   font-family:"Poppins",sans-serif;
@@ -1325,7 +1374,7 @@ section{padding:68px 0;}
       <ul class="menu-links" id="menuLinks">
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#funil">Funil</a></li>
-        <li><a href="#trabalhos">Resultados</a></li>
+        <li><a href="#trabalhos">Vídeos</a></li>
         <li><a href="#servicos">Serviços</a></li>
         <li><a href="#numeros">Depoimentos</a></li>
         <li><a href="#contato">Contato</a></li>
@@ -1348,7 +1397,7 @@ section{padding:68px 0;}
 
         <div class="capa-acoes">
           <a class="btn btn--red" href="#contato">Vamos transformar sua marca</a>
-          <a class="btn" href="#trabalhos">Ver os resultados</a>
+          <a class="btn" href="#trabalhos">Ver os vídeos</a>
         </div>
       </div>
 
@@ -1448,9 +1497,9 @@ section{padding:68px 0;}
 <!-- ============ 4. TRABALHOS POR NICHO ============ -->
 <section id="trabalhos">
   <div class="container">
-    <span class="section-tag">Resultados por nicho</span>
-    <h2 class="section-title">O que cada nicho render</h2>
-    <p class="section-lead">Escolha um nicho para ver só os resultados dele.</p>    <hr class="rule">
+    <span class="section-tag">Vídeos por nicho</span>
+    <h2 class="section-title">Cada nicho, com a minha cara</h2>
+    <p class="section-lead">Escolha um nicho para ver só os vídeos dele. Cada capa abre o vídeo completo no YouTube.</p>    <hr class="rule">
     <div class="filtros" id="filtros" role="group" aria-label="Filtrar trabalhos por nicho"></div>
     <div class="trabalhos-grid" id="trabalhosGrid">
       <!-- Os trabalhos são inseridos pelo JavaScript a partir do array TRABALHOS -->
@@ -1598,7 +1647,7 @@ const PERFIL = {
 /* NICHOS: os botoes de filtro da galeria de trabalhos.
    O primeiro item e o "Todos", que mostra a galeria inteira.
    Tech e o nicho de principal objetivo. */
-const NICHOS = ["Todos","tech","casa","bem estar","beleza","maternidade"];
+const NICHOS = ["Todos","tech","casa","bem estar","beleza"];
 
 /* FAIXA DA CAPA: os servicos que passam em movimento, sem parar.
    Escreva em caixa alta, que o site formata sozinho. */
@@ -1661,24 +1710,28 @@ const FUNIL = [
 ];
 
 /* TRABALHOS: galeria com filtro por nicho.
-   "nicho" precisa bater exatamente com um item do array NICHOS. */
+   "nicho" precisa bater exatamente com um item do array NICHOS.
+   Troque "link" pelo endereco do video e "imagem" pela capa (4:5). */
 const TRABALHOS = [
-  { nicho:"tech",        titulo:"Tablet para estudo",        meta:"tech",        desc:"Demonstração de uso no dia a dia, com tela dividida e rotina real.", imagem:"" },
-  { nicho:"tech",        titulo:"Fone Bluetooth",           meta:"tech",        desc:"Unboxing com teste de áudio e comparação de preço.", imagem:"" },
-  { nicho:"tech",        titulo:"Robô aspirador",            meta:"tech",        desc:"Vídeo de muita reação, gravado em casa com pets.", imagem:"" },
-  { nicho:"casa",        titulo:"Cooktop inteligente",       meta:"casa",        desc:"Receita rápida gravada em frente ao fogão, com produto em cena.", imagem:"" },
-  { nicho:"casa",        titulo:"Organizador de cozinha",   meta:"casa",        desc:"Antes e depois em time lapse, com voz em off.", imagem:"" },
-  { nicho:"casa",        titulo:"Cafeteira compacta",        meta:"casa",        desc:"Manhã completa do café, do liga até a primeira xícara. ☕", imagem:"" },
-  { nicho:"bem estar",   titulo:"Massagem relaxante",        meta:"bem estar",   desc:"Demonstração segura, com foco em relaxamento real.", imagem:"" },
-  { nicho:"bem estar",   titulo:"Kit de banho",              meta:"bem estar",   desc:"Roteiro de rotina noturna, com textura e sensorialidade.", imagem:"" },
-  { nicho:"bem estar",   titulo:"Suplemento natural",        meta:"bem estar",   desc:"Fala direta para a câmera, com uso no dia a dia.", imagem:"" },
-  { nicho:"beleza",      titulo:"Base de alta cobertura",   meta:"beleza",      desc:"Cobertura em close, com aplicação real e antes e depois.", imagem:"" },
-  { nicho:"beleza",      titulo:"Shampoo anticaspa",         meta:"beleza",      desc:"Cabelo real, aplicação real, sem filtro.", imagem:"" },
-  { nicho:"beleza",      titulo:"Perfume hipersexual",       meta:"beleza",      desc:"Reação genuína no primeiro uso e descrição de fragrância.", imagem:"" },
-  { nicho:"maternidade", titulo:"Mochila para mamãe",        meta:"maternidade", desc:"Uso real com o bebê no colo, mostrando o quanto liberta o dia.", imagem:"" },
-  { nicho:"maternidade", titulo:"Organizador da fraldaria",  meta:"maternidade", desc:"Antes e depois da reorganização, com a rotina real da casa.", imagem:"" },
-  { nicho:"maternidade", titulo:"Bebedouro para Wordpress",   meta:"maternidade", desc:"Detalhe do produto no lugar onde ele realmente vive.", imagem:"" }
+  { nicho:"tech",      titulo:"App de Treino — Boom Fit Club",    link:"https://www.youtube.com/shorts/UMPB5EiL8IU", imagem:"img/trabalhos/tech-1.jpg",      desc:"Roteiro em três atos: a pergunta, a resposta e o convite pra baixar o app." },
+  { nicho:"tech",      titulo:"Treinamento de Tech",               link:"https://www.youtube.com/shorts/WTk9wc-G-74", imagem:"img/trabalhos/tech-2.jpg",      desc:"Vídeo curto, direto para a câmera, mostrando o que o app faz na prática." },
+  { nicho:"tech",      titulo:"Grupo de Achadinhos",               link:"https://www.youtube.com/shorts/tsGwFMZ4oZA", imagem:"img/trabalhos/tech-3.jpg",      desc:"Os achados do TikTok Shop mostrados um a um, com reação real de quem está usando." },
+  { nicho:"tech",      titulo:"Luminárias Led — TikTok Shop",      link:"https://www.youtube.com/shorts/Sh-0TE9LbDk", imagem:"img/trabalhos/tech-4.jpg",      desc:"Unboxing de luminária comprada no TikTok Shop, com o produto na mão e o preço na tela." },
+
+  { nicho:"casa",      titulo:"Café e Filtro Pimpinela",           link:"https://www.youtube.com/shorts/2MmncJEkHY8", imagem:"img/trabalhos/casa-1.jpg",      desc:"Café na rotina da manhã: filtro, pó e o primeiro gole sem pressa. ☕" },
+  { nicho:"casa",      titulo:"Mini Liquidificador — Electrolux",  link:"https://www.youtube.com/shorts/Fhpx6FtUfRQ", imagem:"img/trabalhos/casa-2.jpg",      desc:"Liquidificador pequeno, uso real e o resultado na hora — sem roteiro decorado." },
+  { nicho:"casa",      titulo:"Sabão Líquido e Amaciante — Koala", link:"https://www.youtube.com/shorts/DwWM7mwuwB0", imagem:"img/trabalhos/casa-3.jpg",      desc:"Cheiro que fica na roupa: o antes e o depois da mesma lavagem, sem corte." },
+  { nicho:"casa",      titulo:"Saco de Lixo Perfumado",            link:"https://www.youtube.com/shorts/XCN3GYoHTTc", imagem:"img/trabalhos/casa-4.jpg",      desc:"O detalhe que ninguém comenta: o lixo da casa também pode ter perfume." },
+
+  { nicho:"bem estar", titulo:"Melatonina True",                   link:"https://www.youtube.com/shorts/GblC02SEGL8", imagem:"img/trabalhos/bem-estar-1.jpg", desc:"Rotina de sono com o produto na mesa de cabeceira e a noite quieta." },
+  { nicho:"bem estar", titulo:"Wey Protein",                       link:"https://www.youtube.com/shorts/Q058l7Wx9Oc", imagem:"img/trabalhos/bem-estar-2.jpg", desc:"Scoop, shake e a pergunta que todo mundo faz sobre proteína." },
+  { nicho:"bem estar", titulo:"Creatina — Silva Nutrition",        link:"https://www.youtube.com/shorts/WL61na1f7xE", imagem:"img/trabalhos/bem-estar-3.jpg", desc:"Explicando o que é creatina, sem susto e sem promessa milagrosa." },
+  { nicho:"bem estar", titulo:"Multivitamínico Dux",               link:"https://www.youtube.com/shorts/LmAvsZUOhaY", imagem:"img/trabalhos/bem-estar-4.jpg", desc:"Uma rotina simples de suplementação, contada como quem vive o dia a dia." },
+
+  { nicho:"beleza",    titulo:"Dove Sabonetes Serum — Unboxing",   link:"https://www.youtube.com/shorts/uBfpLo_VpA0", imagem:"img/trabalhos/beleza-1.jpg",    desc:"Abertura da caixa dos sabonetes serum, com a pele real em cena." },
+  { nicho:"beleza",    titulo:"Sabonetes Serum Dove — Review",     link:"https://www.youtube.com/shorts/DD53x3I9WOo", imagem:"img/trabalhos/beleza-2.jpg",    desc:"Review de verdade: o que eu gostei, o que não gostei e por quê." }
 ];
+
 
 /* SERVIÇOS: os seis blocos da seção Como eu te ajudo. */
 const SERVICOS = [
@@ -1971,25 +2024,50 @@ const DEPOIMENTOS = [
     const thumb = document.createElement("div");
     thumb.className = "thumb";
 
+    /* o card inteiro leva pro video no YouTube */
+    const link = document.createElement("a");
+    link.className = "thumb-link";
+    link.href = t.link;                     /* <<< LINK DO VÍDEO entra aqui */
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.setAttribute("aria-label", "Assistir vídeo: " + t.titulo);
+
     if (t.imagem) {
-      /* Se houver imagem, ela entra aqui no lugar do degradê. */
+      /* A capa entra aqui, em 4:5, sem perder a qualidade. */
       const img = document.createElement("img");
       img.src = t.imagem;
-      img.alt = "Imagem do trabalho: " + t.titulo;
+      img.alt = "Capa do vídeo: " + t.titulo;
       img.loading = "lazy";
       img.style.width = "100%";
       img.style.height = "100%";
       img.style.objectFit = "cover";
-      thumb.appendChild(img);
+      link.appendChild(img);
     } else {
       const aviso = document.createElement("span");
       aviso.className = "media-txt";
-      aviso.innerHTML = "<strong>Foto do trabalho</strong>Formato 4:5";
-      thumb.appendChild(aviso);
+      aviso.innerHTML = "<strong>Capa do vídeo</strong>Formato 4:5";
+      link.appendChild(aviso);
     }
 
+    const play = document.createElement("span");
+    play.className = "play-mini";
+    play.setAttribute("aria-hidden", "true");
+    link.appendChild(play);
+
+    const formato = document.createElement("span");
+    formato.className = "formato";
+    formato.textContent = "Vídeo";
+    link.appendChild(formato);
+
+    thumb.appendChild(link);
+
     const cap = document.createElement("figcaption");
-    cap.textContent = "Foto do trabalho &middot; 4:5";
+    const capLink = document.createElement("a");
+    capLink.href = t.link;
+    capLink.target = "_blank";
+    capLink.rel = "noopener noreferrer";
+    capLink.innerHTML = "Assistir no YouTube <span aria-hidden=\"true\">&#8599;</span>";
+    cap.appendChild(capLink);
     fig.appendChild(thumb);
     fig.appendChild(cap);
 

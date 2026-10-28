@@ -1,0 +1,14 @@
+01 = tech-1
+02 = tech-2
+03 = tech-3
+04 = tech-4
+05 = casa-1
+06 = casa-2
+07 = casa-3
+08 = casa-4
+09 = bem-estar-1
+10 = bem-estar-2
+11 = bem-estar-3
+12 = bem-estar-4
+13 = beleza-1
+14 = beleza-2
