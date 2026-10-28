@@ -1204,6 +1204,104 @@ section{padding:68px 0;}
 }
 
 /* ============================================================
+   PLAYER DE VIDEO
+   O video abre aqui no site, em tela cheia, sem sair da pagina.
+   ============================================================ */
+.player-fundo{
+  position:fixed;
+  inset:0;
+  z-index:95;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px 16px;
+  background:rgba(38,26,20,.86);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+}
+.player-fundo[data-aberto="true"]{display:flex;}
+.player{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  max-width:100%;
+}
+.player-tela{
+  position:relative;
+  height:min(76vh,700px);
+  aspect-ratio:9/16;
+  max-width:100%;
+  background:#140d0a;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 26px 70px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.1);
+}
+.player-tela video,
+.player-tela iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  object-fit:cover;
+  display:block;
+  background:#140d0a;
+}
+.player h3{
+  font-family:"DM Serif Display",Georgia,serif;
+  font-size:1.24rem;
+  font-weight:400;
+  color:var(--creme);
+  text-align:center;
+  margin:4px 0 0;
+  max-width:520px;
+}
+.player-nicho{
+  font-family:"Poppins",sans-serif;
+  font-size:.6rem;
+  font-weight:500;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--bege);
+  margin:0;
+}
+.player-link{
+  font-family:"Poppins",sans-serif;
+  font-size:.62rem;
+  font-weight:500;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--bege);
+  text-decoration:none;
+  border-bottom:1px solid rgba(216,176,140,.45);
+  padding-bottom:3px;
+  transition:color .15s ease, border-color .15s ease;
+}
+.player-link:hover{color:var(--creme);border-color:var(--creme);}
+.player-fechar{
+  position:absolute;
+  top:-14px;
+  right:-14px;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1px solid var(--line-strong);
+  background:var(--creme);
+  color:var(--cafe);
+  font-size:1.4rem;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:var(--shadow-sm);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .15s ease, color .15s ease;
+}
+.player-fechar:hover{background:var(--caramelo);color:var(--creme);}
+
+/* ============================================================
    8. RODAPÉ
    ============================================================ */
 .rodape{
@@ -1699,6 +1797,20 @@ section{padding:68px 0;}
   </div>
 </footer>
 
+<!-- ============ PLAYER DE VIDEO (abre o video aqui no site) ============ -->
+<div class="player-fundo" id="playerFundo" data-aberto="false" role="dialog" aria-modal="true" aria-labelledby="playerTitulo" hidden>
+  <div class="player">
+    <div class="player-tela" id="playerTela">
+      <video id="playerVideo" controls playsinline preload="none"></video>
+      <iframe id="playerFrame" title="YouTube player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen hidden></iframe>
+    </div>
+    <h3 id="playerTitulo">&nbsp;</h3>
+    <p class="player-nicho" id="playerNicho">&nbsp;</p>
+    <a class="player-link" id="playerLink" href="#" target="_blank" rel="noopener noreferrer" data-i18n="player.link">Abrir no YouTube &#8599;</a>
+    <button class="player-fechar" id="playerFechar" type="button" data-i18n-aria="player.fechar" aria-label="Fechar">&times;</button>
+  </div>
+</div>
+
 <!-- ============ CARD DE CAPTURA (aparece após 7 segundos) ============ -->
 <div class="captura-fundo" id="capturaFundo" data-aberto="false" role="dialog" aria-modal="true" aria-labelledby="capturaTitulo" hidden>
   <div class="captura" id="capturaCard">
@@ -1821,23 +1933,23 @@ const FUNIL = [
    "nicho" precisa bater exatamente com um item do array NICHOS.
    Troque "link" pelo endereco do video e "imagem" pela capa (4:5). */
 const TRABALHOS = [
-  { nicho:"tech",      titulo:{ pt:"App de Treino — Boom Fit Club",    en:"Fitness App — Boom Fit Club" },   link:"https://www.youtube.com/shorts/UMPB5EiL8IU", imagem:"img/trabalhos/tech-1.jpg",      desc:{ pt:"Roteiro em três atos: a pergunta, a resposta e o convite pra baixar o app.", en:"A script in three acts: the question, the answer and the invitation to download the app." } },
-  { nicho:"tech",      titulo:{ pt:"Treinamento de Tech",               en:"Tech Training" },                    link:"https://www.youtube.com/shorts/WTk9wc-G-74", imagem:"img/trabalhos/tech-2.jpg",      desc:{ pt:"Vídeo curto, direto para a câmera, mostrando o que o app faz na prática.", en:"Short video, straight to camera, showing what the app actually does in practice." } },
-  { nicho:"tech",      titulo:{ pt:"Grupo de Achadinhos",               en:"Group Buys" },                       link:"https://www.youtube.com/shorts/tsGwFMZ4oZA", imagem:"img/trabalhos/tech-3.jpg",      desc:{ pt:"Os achados do TikTok Shop mostrados um a um, com reação real de quem está usando.", en:"The TikTok Shop finds shown one by one, with a real reaction from someone actually using them." } },
-  { nicho:"tech",      titulo:{ pt:"Luminárias Led — TikTok Shop",      en:"LED Lights — TikTok Shop" },         link:"https://www.youtube.com/shorts/Sh-0TE9LbDk", imagem:"img/trabalhos/tech-4.jpg",      desc:{ pt:"Unboxing de luminária comprada no TikTok Shop, com o produto na mão e o preço na tela.", en:"Unboxing of a light bought on TikTok Shop, with the product in hand and the price on screen." } },
+  { nicho:"tech",      titulo:{ pt:"App de Treino — Boom Fit Club",    en:"Fitness App — Boom Fit Club" },   link:"https://www.youtube.com/shorts/UMPB5EiL8IU", imagem:"img/trabalhos/tech-1.jpg", video:"videos/tech-1.mp4",      desc:{ pt:"Roteiro em três atos: a pergunta, a resposta e o convite pra baixar o app.", en:"A script in three acts: the question, the answer and the invitation to download the app." } },
+  { nicho:"tech",      titulo:{ pt:"Treinamento de Tech",               en:"Tech Training" },                    link:"https://www.youtube.com/shorts/WTk9wc-G-74", imagem:"img/trabalhos/tech-2.jpg", video:"videos/tech-2.mp4",      desc:{ pt:"Vídeo curto, direto para a câmera, mostrando o que o app faz na prática.", en:"Short video, straight to camera, showing what the app actually does in practice." } },
+  { nicho:"tech",      titulo:{ pt:"Grupo de Achadinhos",               en:"Group Buys" },                       link:"https://www.youtube.com/shorts/tsGwFMZ4oZA", imagem:"img/trabalhos/tech-3.jpg", video:"videos/tech-3.mp4",      desc:{ pt:"Os achados do TikTok Shop mostrados um a um, com reação real de quem está usando.", en:"The TikTok Shop finds shown one by one, with a real reaction from someone actually using them." } },
+  { nicho:"tech",      titulo:{ pt:"Luminárias Led — TikTok Shop",      en:"LED Lights — TikTok Shop" },         link:"https://www.youtube.com/shorts/Sh-0TE9LbDk", imagem:"img/trabalhos/tech-4.jpg", video:"videos/tech-4.mp4",      desc:{ pt:"Unboxing de luminária comprada no TikTok Shop, com o produto na mão e o preço na tela.", en:"Unboxing of a light bought on TikTok Shop, with the product in hand and the price on screen." } },
 
-  { nicho:"casa",      titulo:{ pt:"Café e Filtro Pimpinela",           en:"Coffee & Pimpinela Filter" },        link:"https://www.youtube.com/shorts/2MmncJEkHY8", imagem:"img/trabalhos/casa-1.jpg",      desc:{ pt:"Café na rotina da manhã: filtro, pó e o primeiro gole sem pressa. ☕", en:"Coffee in the morning routine: filter, grounds and the first sip with no rush. ☕" } },
-  { nicho:"casa",      titulo:{ pt:"Mini Liquidificador — Electrolux",  en:"Mini Blender — Electrolux" },        link:"https://www.youtube.com/shorts/Fhpx6FtUfRQ", imagem:"img/trabalhos/casa-2.jpg",      desc:{ pt:"Liquidificador pequeno, uso real e o resultado na hora — sem roteiro decorado.", en:"A small blender, real use and the result right away — no scripted routine." } },
-  { nicho:"casa",      titulo:{ pt:"Sabão Líquido e Amaciante — Koala", en:"Liquid Soap & Softener — Koala" },  link:"https://www.youtube.com/shorts/DwWM7mwuwB0", imagem:"img/trabalhos/casa-3.jpg",      desc:{ pt:"Cheiro que fica na roupa: o antes e o depois da mesma lavagem, sem corte.", en:"The scent that stays on the clothes: before and after of the same wash, no cut." } },
-  { nicho:"casa",      titulo:{ pt:"Saco de Lixo Perfumado",            en:"Scented Trash Bags" },                link:"https://www.youtube.com/shorts/XCN3GYoHTTc", imagem:"img/trabalhos/casa-4.jpg",      desc:{ pt:"O detalhe que ninguém comenta: o lixo da casa também pode ter perfume.", en:"The detail nobody talks about: your trash can can have a scent too." } },
+  { nicho:"casa",      titulo:{ pt:"Café e Filtro Pimpinela",           en:"Coffee & Pimpinela Filter" },        link:"https://www.youtube.com/shorts/2MmncJEkHY8", imagem:"img/trabalhos/casa-1.jpg", video:"videos/casa-1.mp4",      desc:{ pt:"Café na rotina da manhã: filtro, pó e o primeiro gole sem pressa. ☕", en:"Coffee in the morning routine: filter, grounds and the first sip with no rush. ☕" } },
+  { nicho:"casa",      titulo:{ pt:"Mini Liquidificador — Electrolux",  en:"Mini Blender — Electrolux" },        link:"https://www.youtube.com/shorts/Fhpx6FtUfRQ", imagem:"img/trabalhos/casa-2.jpg", video:"videos/casa-2.mp4",      desc:{ pt:"Liquidificador pequeno, uso real e o resultado na hora — sem roteiro decorado.", en:"A small blender, real use and the result right away — no scripted routine." } },
+  { nicho:"casa",      titulo:{ pt:"Sabão Líquido e Amaciante — Koala", en:"Liquid Soap & Softener — Koala" },  link:"https://www.youtube.com/shorts/DwWM7mwuwB0", imagem:"img/trabalhos/casa-3.jpg", video:"videos/casa-3.mp4",      desc:{ pt:"Cheiro que fica na roupa: o antes e o depois da mesma lavagem, sem corte.", en:"The scent that stays on the clothes: before and after of the same wash, no cut." } },
+  { nicho:"casa",      titulo:{ pt:"Saco de Lixo Perfumado",            en:"Scented Trash Bags" },                link:"https://www.youtube.com/shorts/XCN3GYoHTTc", imagem:"img/trabalhos/casa-4.jpg", video:"videos/casa-4.mp4",      desc:{ pt:"O detalhe que ninguém comenta: o lixo da casa também pode ter perfume.", en:"The detail nobody talks about: your trash can can have a scent too." } },
 
-  { nicho:"bem estar", titulo:{ pt:"Melatonina True",                   en:"True Melatonin" },                   link:"https://www.youtube.com/shorts/GblC02SEGL8", imagem:"img/trabalhos/bem-estar-1.jpg", desc:{ pt:"Rotina de sono com o produto na mesa de cabeceira e a noite quieta.", en:"A sleep routine with the product on the nightstand and a quiet night." } },
-  { nicho:"bem estar", titulo:{ pt:"Wey Protein",                       en:"Wey Protein" },                      link:"https://www.youtube.com/shorts/Q058l7Wx9Oc", imagem:"img/trabalhos/bem-estar-2.jpg", desc:{ pt:"Scoop, shake e a pergunta que todo mundo faz sobre proteína.", en:"Scoop, shake and the question everyone asks about protein." } },
+  { nicho:"bem estar", titulo:{ pt:"Melatonina True",                   en:"True Melatonin" },                   link:"https://www.youtube.com/shorts/GblC02SEGL8", imagem:"img/trabalhos/bem-estar-1.jpg", video:"videos/bem-estar-1.mp4", desc:{ pt:"Rotina de sono com o produto na mesa de cabeceira e a noite quieta.", en:"A sleep routine with the product on the nightstand and a quiet night." } },
+  { nicho:"bem estar", titulo:{ pt:"Wey Protein",                       en:"Wey Protein" },                      link:"https://www.youtube.com/shorts/Q058l7Wx9Oc", imagem:"img/trabalhos/bem-estar-2.jpg", video:"videos/bem-estar-2.mp4", desc:{ pt:"Scoop, shake e a pergunta que todo mundo faz sobre proteína.", en:"Scoop, shake and the question everyone asks about protein." } },
   { nicho:"bem estar", titulo:{ pt:"Creatina — Silva Nutrition",        en:"Creatine — Silva Nutrition" },       link:"https://www.youtube.com/shorts/WL61na1f7xE", imagem:"img/trabalhos/bem-estar-3.jpg", desc:{ pt:"Explicando o que é creatina, sem susto e sem promessa milagrosa.", en:"Explaining what creatine is, no scare tactics and no miracle promises." } },
-  { nicho:"bem estar", titulo:{ pt:"Multivitamínico Dux",               en:"Dux Multivitamin" },                 link:"https://www.youtube.com/shorts/LmAvsZUOhaY", imagem:"img/trabalhos/bem-estar-4.jpg", desc:{ pt:"Uma rotina simples de suplementação, contada como quem vive o dia a dia.", en:"A simple supplement routine, told the way you actually live your day." } },
+  { nicho:"bem estar", titulo:{ pt:"Multivitamínico Dux",               en:"Dux Multivitamin" },                 link:"https://www.youtube.com/shorts/LmAvsZUOhaY", imagem:"img/trabalhos/bem-estar-4.jpg", video:"videos/bem-estar-4.mp4", desc:{ pt:"Uma rotina simples de suplementação, contada como quem vive o dia a dia.", en:"A simple supplement routine, told the way you actually live your day." } },
 
-  { nicho:"beleza",    titulo:{ pt:"Dove Sabonetes Serum — Unboxing",   en:"Dove Serum Soaps — Unboxing" },      link:"https://www.youtube.com/shorts/uBfpLo_VpA0", imagem:"img/trabalhos/beleza-1.jpg",    desc:{ pt:"Abertura da caixa dos sabonetes serum, com a pele real em cena.", en:"Opening the box of the serum soaps, with real skin on camera." } },
-  { nicho:"beleza",    titulo:{ pt:"Sabonetes Serum Dove — Review",     en:"Dove Serum Soaps — Review" },        link:"https://www.youtube.com/shorts/DD53x3I9WOo", imagem:"img/trabalhos/beleza-2.jpg",    desc:{ pt:"Review de verdade: o que eu gostei, o que não gostei e por quê.", en:"An honest review: what I liked, what I didn't and why." } }
+  { nicho:"beleza",    titulo:{ pt:"Dove Sabonetes Serum — Unboxing",   en:"Dove Serum Soaps — Unboxing" },      link:"https://www.youtube.com/shorts/uBfpLo_VpA0", imagem:"img/trabalhos/beleza-1.jpg", video:"videos/beleza-1.mp4",    desc:{ pt:"Abertura da caixa dos sabonetes serum, com a pele real em cena.", en:"Opening the box of the serum soaps, with real skin on camera." } },
+  { nicho:"beleza",    titulo:{ pt:"Sabonetes Serum Dove — Review",     en:"Dove Serum Soaps — Review" },        link:"https://www.youtube.com/shorts/DD53x3I9WOo", imagem:"img/trabalhos/beleza-2.jpg", video:"videos/beleza-2.mp4",    desc:{ pt:"Review de verdade: o que eu gostei, o que não gostei e por quê.", en:"An honest review: what I liked, what I didn't and why." } }
 ];
 
 /* SERVIÇOS: os seis blocos da seção Como eu te ajudo. */
@@ -1915,7 +2027,7 @@ const I18N = {
     "trab.title":   "Cada nicho, com a minha cara",
     "trab.lead":    "Escolha um nicho para ver só os vídeos dele. Cada capa abre o vídeo completo no YouTube.",
     "trab.filtros": "Filtrar trabalhos por nicho",
-    "trab.assistir":"Assistir no YouTube <span aria-hidden=\"true\">&#8599;</span>",
+    "trab.assistir":"Assistir aqui <span aria-hidden=\"true\">&#8599;</span>",
     "trab.video":   "Vídeo",
     "trab.capa":    "<strong>Capa do vídeo</strong>Formato 4:5",
     "trab.assistirAria": "Assistir vídeo: ",
@@ -1946,6 +2058,8 @@ const I18N = {
     "captura.btn":    "Quero receber",
     "captura.ok":     "Mídia kit a caminho do seu e-mail. Se não chegar em alguns minutos, me chama no WhatsApp.",
     "captura.fechar": "Fechar",
+    "player.link":   "Abrir no YouTube &#8599;",
+    "player.fechar": "Fechar o video",
     "captura.faltou": "Preencha seu nome e e-mail para eu enviar o mídia kit.",
 
     "rodape.copy": "&copy; <span id=\"anoAtual\">2026</span> Thayane Teixeira. Todos os direitos reservados. Feito com café no Rio de Janeiro. ☕"
@@ -2002,7 +2116,7 @@ const I18N = {
     "trab.title":   "Every niche, with my face on it",
     "trab.lead":    "Pick a niche to see only its videos. Every cover opens the full video on YouTube.",
     "trab.filtros": "Filter videos by niche",
-    "trab.assistir":"Watch on YouTube <span aria-hidden=\"true\">&#8599;</span>",
+    "trab.assistir":"Watch it here <span aria-hidden=\"true\">&#8599;</span>",
     "trab.video":   "Video",
     "trab.capa":    "<strong>Video cover</strong>4:5 format",
     "trab.assistirAria": "Watch video: ",
@@ -2033,6 +2147,8 @@ const I18N = {
     "captura.btn":    "Send it over",
     "captura.ok":     "Your media kit is on its way to your inbox. If it doesn't arrive in a few minutes, message me on WhatsApp.",
     "captura.fechar": "Close",
+    "player.link":   "Watch on YouTube &#8599;",
+    "player.fechar": "Close the video",
     "captura.faltou": "Fill in your name and email so I can send the media kit.",
 
     "rodape.copy": "&copy; <span id=\"anoAtual\">2026</span> Thayane Teixeira. All rights reserved. Made with coffee in Rio de Janeiro. ☕"
@@ -2331,6 +2447,66 @@ const I18N = {
   $("#funilAnt").addEventListener("click", function () { irParaFunil(funilAtivo - 1); });
   $("#funilProx").addEventListener("click", function () { irParaFunil(funilAtivo + 1); });
 
+  /* ---------- PLAYER DE VIDEO: o video abre aqui no site ---------- */
+  const playerFundo  = $("#playerFundo");
+  const playerVideo  = $("#playerVideo");
+  const playerFrame  = $("#playerFrame");
+  const playerTitulo = $("#playerTitulo");
+  const playerNicho  = $("#playerNicho");
+  const playerLink   = $("#playerLink");
+  const playerFechar = $("#playerFechar");
+
+  /* id do video no YouTube (a ultima parte do endereco) */
+  function idDoYouTube(url) {
+    return String(url).split("/").pop().split("?")[0].split("&")[0];
+  }
+
+  function abrirPlayer(t) {
+    playerTitulo.textContent = T(t.titulo);
+    playerNicho.textContent = nomeNicho(t.nicho);
+    playerLink.href = t.link;
+
+    if (t.video) {
+      /* video hospedado aqui: vertical de verdade, sem tarja preta */
+      playerVideo.hidden = false;
+      playerFrame.hidden = true;
+      playerVideo.poster = t.imagem;
+      playerVideo.src = t.video;
+      const tocar = playerVideo.play();
+      if (tocar && typeof tocar.catch === "function") { tocar.catch(function () {}); }
+    } else {
+      /* sem arquivo local: usa o player do YouTube dentro do site */
+      playerVideo.hidden = true;
+      playerFrame.hidden = false;
+      playerVideo.removeAttribute("src");
+      playerFrame.src = "https://www.youtube-nocookie.com/embed/" + idDoYouTube(t.link) + "?autoplay=1&rel=0&playsinline=1";
+    }
+
+    playerFundo.removeAttribute("hidden");
+    playerFundo.setAttribute("data-aberto", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  function fecharPlayer() {
+    playerFundo.setAttribute("data-aberto", "false");
+    playerFundo.setAttribute("hidden", "hidden");
+    playerVideo.pause();
+    playerVideo.removeAttribute("src");
+    playerVideo.load();
+    playerFrame.src = "about:blank";
+    document.body.style.overflow = "";
+  }
+
+  playerFechar.addEventListener("click", fecharPlayer);
+  playerFundo.addEventListener("click", function (ev) {
+    if (ev.target === playerFundo) { fecharPlayer(); }
+  });
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape" && playerFundo.getAttribute("data-aberto") === "true") {
+      fecharPlayer();
+    }
+  });
+
   /* ---------- FILTROS + TRABALHOS ---------- */
   const filtrosBox     = $("#filtros");
   const trabalhosGrid  = $("#trabalhosGrid");
@@ -2365,13 +2541,17 @@ const I18N = {
       const thumb = document.createElement("div");
       thumb.className = "thumb";
 
-      /* o card inteiro leva pro video no YouTube */
+      /* o card inteiro abre o video aqui no site */
       const link = document.createElement("a");
       link.className = "thumb-link";
       link.href = t.link;                     /* <<< LINK DO VÍDEO entra aqui */
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.setAttribute("aria-label", I18N[idiomaAtual]["trab.assistirAria"] + T(t.titulo));
+      link.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        abrirPlayer(t);
+      });
 
       if (t.imagem) {
         /* A capa entra aqui, em 4:5, sem perder a qualidade. */
@@ -2408,6 +2588,10 @@ const I18N = {
       capLink.target = "_blank";
       capLink.rel = "noopener noreferrer";
       capLink.innerHTML = I18N[idiomaAtual]["trab.assistir"];
+      capLink.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        abrirPlayer(t);
+      });
       cap.appendChild(capLink);
       fig.appendChild(thumb);
       fig.appendChild(cap);
@@ -2625,6 +2809,8 @@ const I18N = {
 
   function abrirCaptura() {
     if (sessionStorage.getItem(CHAVE_VISITA) === "sim") { return; }
+    /* nao abre por cima de um video em reproducao */
+    if ($("#playerFundo").getAttribute("data-aberto") === "true") { return; }
     ultimoFoco = document.activeElement;
     capturaFundo.removeAttribute("hidden");
     capturaFundo.setAttribute("data-aberto", "true");
