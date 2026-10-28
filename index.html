@@ -577,39 +577,50 @@ section{padding:68px 0;}
 }
 
 /* ============================================================
-   3. DESTAQUES
+   3. DIREÇÃO CRIATIVA POR ETAPA DO FUNIL
    ============================================================ */
-.destaques-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
+.funil-lista{
+  display:flex;
+  flex-direction:column;
   gap:26px;
 }
-.destaque{
-  display:block;
-  text-decoration:none;
-  color:inherit;
+.funil-card{
+  display:grid;
+  grid-template-columns:236px 1fr;
+  gap:30px;
+  align-items:start;
   background:var(--creme-claro);
   border:1px solid var(--line-strong);
-  border-top:5px solid var(--caramelo);
+  border-left:5px solid var(--caramelo);
   border-radius:var(--radius);
   box-shadow:var(--shadow);
-  overflow:hidden;
+  padding:24px;
   transition:transform .16s ease, box-shadow .16s ease;
 }
-.destaque:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--cafe);}
-.destaque .capa-video{
+.funil-card:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--cafe);}
+.funil-video{
   position:relative;
   aspect-ratio:9/16;
   background:linear-gradient(155deg,#e8d5bf 0%,#d8b08c 52%,#8a5a3c 100%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  border-radius:var(--radius);
   overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  padding-bottom:40px;
 }
-.play{
-  position:relative;
-  z-index:2;
-  width:62px;height:62px;
+.funil-video .media-txt{
+  text-align:center;
+  padding:0 14px;
+}
+.funil-video .play{
+  position:absolute;
+  z-index:3;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:54px;height:54px;
   border-radius:50%;
   border:1px solid var(--cafe);
   background:rgba(253,248,242,.94);
@@ -617,50 +628,112 @@ section{padding:68px 0;}
   box-shadow:var(--shadow-sm);
   transition:transform .16s ease, background .16s ease;
 }
-.destaque:hover .play{transform:scale(1.1);background:var(--caramelo);}
-.play::after{
+.funil-card:hover .funil-video .play{transform:translate(-50%,-50%) scale(1.1);background:var(--caramelo);}
+.funil-video .play::after{
   content:"";
   width:0;height:0;
-  border-left:18px solid var(--cafe);
-  border-top:11px solid transparent;
-  border-bottom:11px solid transparent;
+  border-left:16px solid var(--cafe);
+  border-top:10px solid transparent;
+  border-bottom:10px solid transparent;
   margin-left:4px;
 }
-.destaque:hover .play::after{border-left-color:var(--creme-claro);}
-.capa-video .formato{
+.funil-card:hover .funil-video .play::after{border-left-color:var(--creme-claro);}
+.funil-video .formato{
   position:absolute;
-  z-index:2;
+  z-index:3;
   left:10px;bottom:10px;
   background:rgba(59,42,32,.8);
   color:var(--creme);
   font-family:"Poppins",sans-serif;
-  font-size:.58rem;
+  font-size:.56rem;
   font-weight:500;
   letter-spacing:.16em;
   text-transform:uppercase;
   padding:5px 10px;
   border-radius:20px;
 }
-.destaque-corpo{padding:20px 20px 24px;}
-.destaque-num{
-  font-family:"DM Serif Display",Georgia,serif;
-  font-size:2.3rem;
+.funil-info{min-width:0;}
+.funil-etapa{
+  display:inline-block;
+  font-family:"Poppins",sans-serif;
+  font-size:.62rem;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
   color:var(--caramelo-escuro);
-  line-height:1;
+  background:#efdfcb;
+  border-radius:20px;
+  padding:5px 13px;
+  margin-bottom:12px;
 }
-.destaque-num small{
+.funil-info h3{
+  font-family:"DM Serif Display",Georgia,serif;
+  font-size:1.5rem;
+  line-height:1.25;
+  color:var(--cafe);
+  margin-bottom:8px;
+}
+.funil-obj{
+  margin:0 0 16px;
+  font-size:.92rem;
+  color:var(--ink-soft);
+  max-width:56ch;
+}
+.funil-passos{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  gap:11px;
+}
+.funil-passos li{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:12px;
+  align-items:start;
+  font-size:.9rem;
+  color:var(--ink);
+}
+.funil-passos b{
   display:block;
   font-family:"Poppins",sans-serif;
-  font-size:.6rem;
-  font-weight:500;
-  letter-spacing:.2em;
+  font-size:.64rem;
+  font-weight:600;
+  letter-spacing:.16em;
   text-transform:uppercase;
-  color:var(--ink-soft);
-  margin-top:7px;
-  margin-bottom:13px;
+  color:var(--caramelo-escuro);
+  margin-bottom:2px;
 }
-.destaque h3{font-size:1.24rem;color:var(--cafe);margin-bottom:7px;}
-.destaque p{margin:0;font-size:.88rem;color:var(--ink-soft);}
+.funil-passos li::before{
+  content:counter(passo);
+  counter-increment:passo;
+  width:22px;height:22px;
+  border-radius:50%;
+  background:var(--cafe);
+  color:var(--creme);
+  font-family:"Poppins",sans-serif;
+  font-size:.66rem;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.funil-passos{counter-reset:passo;}
+.funil-fecho{
+  margin:18px 0 0;
+  padding-left:14px;
+  border-left:2px solid var(--caramelo);
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-style:italic;
+  font-size:1.1rem;
+  color:var(--caramelo-escuro);
+}
+.funil-nota{
+  margin-top:26px;
+  font-size:.85rem;
+  color:var(--ink-soft);
+  max-width:70ch;
+}
 
 /* ============================================================
    4. TRABALHOS POR NICHO
@@ -1027,7 +1100,8 @@ section{padding:68px 0;}
   .capa-grid{grid-template-columns:1fr;gap:30px;}
   .capa-foto{max-width:340px;margin:0 auto;}
   .sobre-grid{grid-template-columns:1fr;}
-  .destaques-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto;}
+  .funil-card{grid-template-columns:1fr;gap:22px;padding:20px;}
+  .funil-video{max-width:260px;margin:0 auto;}
   .servicos-grid{grid-template-columns:repeat(2,1fr);}
   .depoimentos-grid{grid-template-columns:1fr;}
   .contato-grid{grid-template-columns:1fr;}
@@ -1100,7 +1174,7 @@ section{padding:68px 0;}
     <nav aria-label="Navegação principal">
       <ul class="menu-links" id="menuLinks">
         <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#destaques">Destaques</a></li>
+        <li><a href="#funil">Funil</a></li>
         <li><a href="#trabalhos">Resultados</a></li>
         <li><a href="#servicos">Serviços</a></li>
         <li><a href="#numeros">Depoimentos</a></li>
@@ -1193,15 +1267,16 @@ section{padding:68px 0;}
   </div>
 </section>
 
-<!-- ============ 3. CONTEÚDOS DE DESTAQUE ============ -->
-<section id="destaques">
+<!-- ============ 3. DIREÇÃO CRIATIVA POR ETAPA DO FUNIL ============ -->
+<section id="funil">
   <div class="container">
-    <span class="section-tag">Conteúdos de destaque</span>
-    <h2 class="section-title">Os três vídeos que mais performaram</h2>
-    <p class="section-lead">Cada card abre o vídeo completo. Os números abaixo são os resultados reais de cada peça.</p>    <hr class="rule">
-    <div class="destaques-grid" id="destaquesGrid">
-      <!-- Os destaques são inseridos pelo JavaScript a partir do array DESTAQUES -->
+    <span class="section-tag">Direção criativa</span>
+    <h2 class="section-title">Um vídeo, uma etapa do funil</h2>
+    <p class="section-lead">Não é o mesmo vídeo mudando de legenda. Cada etapa do funil pede um ângulo, um formato e uma chamada diferentes. Estes são os meus três roteiros de referência: topo, meio e fundo.</p>    <hr class="rule">
+    <div class="funil-lista" id="funilLista">
+      <!-- Os roteiros são inseridos pelo JavaScript a partir do array FUNIL -->
     </div>
+    <p class="funil-nota">Cada roteiro abaixo está pronto para gravar. Troque o link e a capa pelo seu vídeo real quando quiser publicar.</p>
   </div>
 </section>
 
@@ -1369,33 +1444,51 @@ const FAIXA_CAPA = [
   "Conteúdo humano e estratégico"
 ];
 
-/* DESTAQUES: os três vídeos em destaque.
-   Troque "link" pelo endereço real do vídeo (YouTube, Vimeo, Reels etc).
-   Troque "capa" pelo caminho da sua imagem vertical 9:16 (ex.: "img/destaque1.jpg"). */
-const DESTAQUES = [
+/* FUNIL: um roteiro por etapa da jornada.
+   Troque "link" pelo endereço real do vídeo (YouTube, Vimeo, Reels etc)
+   e "capa" pelo caminho da sua imagem vertical 9:16 (ex.: "img/funil1.jpg"). */
+const FUNIL = [
   {
     link: "#",                              /* TROQUE AQUI pelo link do vídeo */
     capa: "",                              /* TROQUE AQUI pelo caminho da capa vertical 9:16 */
-    numero: "+2,4M",
-    rotulo: "views no reels",
-    titulo: "Rotina de manhã com o produto na bancada",
-    contexto: "Vídeo de 30 segundos para anúncio de casa conectada, gravado no formato vertical. ☕"
+    etapa: "Topo de funil",
+    duracao: "15 segundos",
+    titulo: "O gancho que faz parar o scroll",
+    objetivo: "Gerar alcance e fazer a pessoa parar no vídeo antes de pensar em comprar.",
+    passos: [
+      { nome:"Gancho",   texto:"Os 3 primeiros segundos mostram um incômodo real — a rotina antes do produto — e o produto ainda não aparece. A pessoa precisa se reconhecer antes de ouvir o nome da marca." },
+      { nome:"Formato",  texto:"Vídeo vertical de 15s, close no rosto, legenda grande no topo e sem trilha: só a minha voz e o som do ambiente." },
+      { nome:"Chamada",  texto:"Uma pergunta, não um pedido: 'Você também perde tempo com isso?'. O objetivo aqui é comentário e compartilhamento, não clique." }
+    ],
+    fecho: "Aqui eu não vendo nada. Eu só faço a pessoa parar."
   },
   {
-    link: "#",                              /* TROQUE AQUI pelo link do vídeo */
-    capa: "",                              /* TROQUE AQUI pelo caminho da capa vertical 9:16 */
-    numero: "+1,8M",
-    rotulo: "views no reels",
-    titulo: "Unboxing de lançamento tech",
-    contexto: "Abertura de caixa em close, com reação real e chamada para o carrinho. 💫"
+    link: "#",
+    capa: "",
+    etapa: "Meio de funil",
+    duracao: "30 segundos",
+    titulo: "A prova que tira a dúvida",
+    objetivo: "Transformar curiosidade em confiança, mostrando o produto funcionando de verdade.",
+    passos: [
+      { nome:"Gancho",   texto:"A objeção mais comum da persona dita em voz alta nos 2 primeiros segundos: 'Será que funciona na minha casa?'" },
+      { nome:"Formato",  texto:"Demonstração real em 30s, sem roteiro decorado: produto na mão, rotina por perto e legenda explicando cada passo." },
+      { nome:"Chamada",  texto:"Convite de comentário ('me manda a sua dúvida') e marcação da marca. É conversa, não venda." }
+    ],
+    fecho: "Mostrar o produto funcionando vale mais que qualquer legenda."
   },
   {
-    link: "#",                              /* TROQUE AQUI pelo link do vídeo */
-    capa: "",                              /* TROQUE AQUI pelo caminho da capa vertical 9:16 */
-    numero: "+920 mil",
-    rotulo: "visualizações",
-    titulo: "Rotina de skincare no banheiro",
-    contexto: "Roteiro de bem estar com aplicação real, luz natural e legenda na tela. ✨"
+    link: "#",
+    capa: "",
+    etapa: "Fundo de funil",
+    duracao: "45 segundos",
+    titulo: "A última objeção resolvida",
+    objetivo: "Converter quem já se interessou: tirar o medo que sobrou e levar à decisão.",
+    passos: [
+      { nome:"Gancho",   texto:"A objeção final da persona — preço, prazo ou risco — aparece na tela como pergunta e é respondida na primeira frase." },
+      { nome:"Formato",  texto:"Vídeo de 45s com prova real: o antes, o durante e o depois. A oferta aparece no fim, junto com o prazo." },
+      { nome:"Chamada",  texto:"Uma chamada única e clara: link na bio, com o prazo real. Nada de 'saiba mais' genérico." }
+    ],
+    fecho: "Quem chega aqui já quer comprar. Meu trabalho é tirar o receio, não criar a vontade."
   }
 ];
 
@@ -1513,70 +1606,91 @@ const DEPOIMENTOS = [
   listaFaixa.appendChild(montarTrilho());
   listaFaixa.appendChild(montarTrilho());
 
-  /* ---------- DESTAQUES ---------- */
-  const destaquesGrid = $("#destaquesGrid");
+  /* ---------- FUNIL ---------- */
+  const funilLista = $("#funilLista");
 
-  DESTAQUES.forEach(function (d) {
+  FUNIL.forEach(function (f, indice) {
+    const card = document.createElement("article");
+    card.className = "funil-card revelar";
+
+    /* --- o vídeo --- */
     const link = document.createElement("a");
-    link.className = "destaque revelar";
-    link.href = d.link;                 /* <<< LINK DO VÍDEO entra aqui */
-    link.target = d.link === "#" ? "_self" : "_blank";
-    if (d.link !== "#") { link.rel = "noopener noreferrer"; }
-    link.setAttribute("aria-label", "Assistir vídeo: " + d.titulo);
+    link.className = "funil-video";
+    link.href = f.link;                    /* <<< LINK DO VÍDEO entra aqui */
+    link.target = f.link === "#" ? "_self" : "_blank";
+    if (f.link !== "#") { link.rel = "noopener noreferrer"; }
+    link.setAttribute("aria-label", "Assistir vídeo: " + f.titulo);
 
-    const capa = document.createElement("div");
-    capa.className = "capa-video";
-
-    if (d.capa) {
+    if (f.capa) {
       /* Se houver imagem, ela entra aqui no lugar do degradê. */
       const img = document.createElement("img");
-      img.src = d.capa;
-      img.alt = "Capa do vídeo: " + d.titulo;
+      img.src = f.capa;
+      img.alt = "Capa do vídeo: " + f.titulo;
       img.loading = "lazy";
       img.style.width = "100%";
       img.style.height = "100%";
       img.style.objectFit = "cover";
-      capa.appendChild(img);
+      link.appendChild(img);
     } else {
       const aviso = document.createElement("span");
       aviso.className = "media-txt";
-      aviso.innerHTML = "<strong>Capa do vídeo</strong>Formato 9:16";
-      capa.appendChild(aviso);
+      aviso.innerHTML = "<strong>Vídeo do roteiro</strong>Formato 9:16";
+      link.appendChild(aviso);
     }
 
     const play = document.createElement("span");
     play.className = "play";
     play.setAttribute("aria-hidden", "true");
-    capa.appendChild(play);
+    link.appendChild(play);
 
     const formato = document.createElement("span");
     formato.className = "formato";
-    formato.textContent = "Capa 9:16";
-    capa.appendChild(formato);
+    formato.textContent = f.duracao;
+    link.appendChild(formato);
 
-    const corpo = document.createElement("div");
-    corpo.className = "destaque-corpo";
+    /* --- a direção criativa --- */
+    const info = document.createElement("div");
+    info.className = "funil-info";
 
-    const num = document.createElement("div");
-    num.className = "destaque-num";
-    num.textContent = d.numero;
-    const rot = document.createElement("small");
-    rot.textContent = d.rotulo;
-    num.appendChild(rot);
+    const etapa = document.createElement("span");
+    etapa.className = "funil-etapa";
+    etapa.textContent = f.etapa;
 
     const titulo = document.createElement("h3");
-    titulo.textContent = d.titulo;
+    titulo.textContent = f.titulo;
 
-    const ctx = document.createElement("p");
-    ctx.textContent = d.contexto;
+    const obj = document.createElement("p");
+    obj.className = "funil-obj";
+    obj.textContent = f.objetivo;
 
-    corpo.appendChild(num);
-    corpo.appendChild(titulo);
-    corpo.appendChild(ctx);
+    const passos = document.createElement("ol");
+    passos.className = "funil-passos";
+    f.passos.forEach(function (p) {
+      const li = document.createElement("li");
+      const bloco = document.createElement("div");
+      const nome = document.createElement("b");
+      nome.textContent = p.nome;
+      const texto = document.createElement("span");
+      texto.textContent = p.texto;
+      bloco.appendChild(nome);
+      bloco.appendChild(texto);
+      li.appendChild(bloco);
+      passos.appendChild(li);
+    });
 
-    link.appendChild(capa);
-    link.appendChild(corpo);
-    destaquesGrid.appendChild(link);
+    const fecho = document.createElement("p");
+    fecho.className = "funil-fecho";
+    fecho.textContent = f.fecho;
+
+    info.appendChild(etapa);
+    info.appendChild(titulo);
+    info.appendChild(obj);
+    info.appendChild(passos);
+    info.appendChild(fecho);
+
+    card.appendChild(link);
+    card.appendChild(info);
+    funilLista.appendChild(card);
   });
 
   /* ---------- FILTROS + TRABALHOS ---------- */
