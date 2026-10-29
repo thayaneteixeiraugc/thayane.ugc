@@ -50,16 +50,30 @@ html{scroll-behavior:smooth;scroll-padding-top:92px;-webkit-text-size-adjust:100
 body{
   margin:0;
   background-color:var(--creme);
-  /* textura natural: manchas suaves de cafe no papel */
+  /* luz de manha e calor: manchas suaves de cafe no papel */
   background-image:
-    radial-gradient(circle at 12% 18%, rgba(138,90,60,.06) 0 130px, transparent 131px),
-    radial-gradient(circle at 88% 62%, rgba(105,77,56,.05) 0 190px, transparent 191px),
-    radial-gradient(circle at 42% 88%, rgba(216,176,140,.12) 0 160px, transparent 161px);
+    radial-gradient(64% 44% at 82% 4%, rgba(253,248,242,.92), transparent 72%),
+    radial-gradient(52% 42% at 2% 76%, rgba(216,176,140,.30), transparent 74%),
+    radial-gradient(48% 36% at 48% 98%, rgba(164,113,72,.14), transparent 76%);
+  background-attachment:fixed;
+  background-repeat:no-repeat;
   color:var(--ink);
   font-family:"Open Sans","Helvetica Neue",Arial,sans-serif;
   font-size:16px;
   line-height:1.75;
   overflow-x:hidden;
+}
+/* grao de papel: textura fina sobre a pagina inteira */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:80;
+  pointer-events:none;
+  opacity:.08;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='220' height='220' filter='url(%23g)'/></svg>");
+  background-size:220px 220px;
 }
 
 img{max-width:100%;display:block;}
@@ -93,6 +107,15 @@ p{margin:0 0 1em;}
 .container{width:100%;max-width:var(--max);margin:0 auto;padding:0 20px;}
 
 section{padding:68px 0;}
+
+/* a galeria senta num painel mais claro: o fundo nunca fica chapado */
+#trabalhos{
+  background:linear-gradient(180deg,
+    rgba(253,248,242,0) 0%,
+    rgba(253,248,242,.5) 12%,
+    rgba(253,248,242,.5) 88%,
+    rgba(253,248,242,0) 100%);
+}
 
 .section-tag{
   font-family:"Poppins",sans-serif;
@@ -339,6 +362,25 @@ section{padding:68px 0;}
 
 .capa{
   padding:140px 0 0;
+  position:relative;
+}
+/* mancha de xicara no papel: marca da marca */
+.capa::before{
+  content:"";
+  position:absolute;
+  left:-70px;
+  bottom:26px;
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle at 47% 52%,
+    rgba(164,113,72,.05) 0 30%,
+    rgba(164,113,72,.11) 45%,
+    rgba(164,113,72,.16) 50%,
+    rgba(164,113,72,.06) 56%,
+    transparent 63%);
+  filter:blur(1.6px);
 }
 .capa-grid{
   display:grid;
@@ -1050,7 +1092,64 @@ section{padding:68px 0;}
 .trabalho[hidden]{display:none;}
 
 /* ============================================================
-   5. SERVIÇOS
+   5. FORMATOS
+   ============================================================ */
+.formatos-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+.formato-card{
+  background:var(--creme-claro);
+  border:1px solid var(--line-strong);
+  border-top:5px solid var(--bege);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:24px 22px 26px;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+}
+.formato-card-num{
+  font-family:"DM Serif Display",Georgia,serif;
+  font-size:2.2rem;
+  color:var(--bege);
+  line-height:1;
+  margin-bottom:10px;
+  display:block;
+}
+.formato-card h3{
+  font-size:1.28rem;
+  color:var(--cafe);
+  margin-bottom:8px;
+}
+.formato-card p{
+  margin:0;
+  font-size:.9rem;
+  color:var(--ink-soft);
+}
+/* storytelling: o card em destaque */
+.formato-card--destaque{
+  grid-column:span 2;
+  background:var(--cafe);
+  border-color:var(--cafe);
+  border-top-color:var(--caramelo);
+  box-shadow:6px 6px 0 var(--vinho);
+}
+.formato-card--destaque .formato-card-num{color:var(--caramelo);}
+.formato-card--destaque h3{color:var(--creme-claro);font-size:1.6rem;}
+.formato-card--destaque p{color:#e8dcc9;font-size:.95rem;}
+.formato-card-selo{
+  position:absolute;
+  top:20px;right:22px;
+  font-family:var(--emoji-font);
+  font-size:1.3rem;
+  line-height:1;
+  transform:rotate(-7deg);
+}
+
+/* ============================================================
+   6. SERVIÇOS
    ============================================================ */
 .servicos-grid{
   display:grid;
@@ -1458,6 +1557,8 @@ section{padding:68px 0;}
   .funil-esquerda{order:1;}
   .funil-info{order:2;}
   .servicos-grid{grid-template-columns:repeat(2,1fr);}
+  .formatos-grid{grid-template-columns:repeat(2,1fr);}
+  .formato-card--destaque{grid-column:span 2;}
   .depoimentos-grid{grid-template-columns:1fr;}
   .contato-grid{grid-template-columns:1fr;}
 }
@@ -1479,13 +1580,15 @@ section{padding:68px 0;}
     transition:max-height .3s ease;
     box-shadow:0 10px 20px rgba(105,77,56,.1);
   }
-  .menu-links[data-aberto="true"]{max-height:340px;}
+  .menu-links[data-aberto="true"]{max-height:420px;}
   .menu-links li{border-bottom:1px solid var(--line);}
   .menu-links li:last-child{border-bottom:0;}
   .menu-links a{display:block;padding:14px 20px;}
   section{padding:54px 0;}
   .capa{padding-top:112px;}
   .servicos-grid{grid-template-columns:1fr;}
+  .formatos-grid{grid-template-columns:1fr;}
+  .formato-card--destaque{grid-column:span 1;}
   .capa-acoes .btn{flex:1 1 100%;justify-content:center;}
   .trabalhos-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;}
   .rodape .container{flex-direction:column;align-items:flex-start;}
@@ -1569,6 +1672,7 @@ section{padding:68px 0;}
         <ul class="menu-links" id="menuLinks">
           <li><a href="#sobre" data-i18n="menu.sobre">Sobre</a></li>
           <li><a href="#funil" data-i18n="menu.funil">Funil</a></li>
+          <li><a href="#formatos" data-i18n="menu.formatos">Formatos</a></li>
           <li><a href="#trabalhos" data-i18n="menu.videos">Vídeos</a></li>
           <li><a href="#servicos" data-i18n="menu.servicos">Serviços</a></li>
           <li><a href="#numeros" data-i18n="menu.depoimentos">Depoimentos</a></li>
@@ -1690,7 +1794,20 @@ section{padding:68px 0;}
   </div>
 </section>
 
-<!-- ============ 4. TRABALHOS POR NICHO ============ -->
+<!-- ============ 4. FORMATOS ============ -->
+<section id="formatos">
+  <div class="container">
+    <span class="section-tag" data-i18n="fmt.tag">Formatos</span>
+    <h2 class="section-title" data-i18n="fmt.title">Cinco formatos, um jeito de contar</h2>
+    <p class="section-lead" data-i18n="fmt.lead">Storytelling é o meu forte. Os outros quatro existem porque é assim que cada produto entra na minha rotina, mas sempre com história dentro.</p>
+    <hr class="rule">
+    <div class="formatos-grid" id="formatosGrid">
+      <!-- Os formatos são inseridos pelo JavaScript a partir do array FORMATOS -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. TRABALHOS POR NICHO ============ -->
 <section id="trabalhos">
   <div class="container">
     <span class="section-tag" data-i18n="trab.tag">Vídeos por nicho</span>
@@ -1952,6 +2069,44 @@ const TRABALHOS = [
   { nicho:"beleza",    titulo:{ pt:"Sabonetes Serum Dove — Review",     en:"Dove Serum Soaps — Review" },        link:"https://www.youtube.com/shorts/DD53x3I9WOo", imagem:"img/trabalhos/beleza-2.jpg", video:"videos/beleza-2.mp4",    desc:{ pt:"Review de verdade: o que eu gostei, o que não gostei e por quê.", en:"An honest review: what I liked, what I didn't and why." } }
 ];
 
+/* FORMATOS: os formatos de vídeo que eu gravo.
+   O primeiro (storytelling) é o destaque e ocupa um card maior.
+   Para mudar a ordem ou tirar um formato, edite este array. */
+const FORMATOS = [
+  {
+    numero:"01",
+    destaque:true,
+    selo:"✨",
+    titulo:{ pt:"Storytelling", en:"Storytelling" },
+    desc:{ pt:"Minha rotina, minha voz e uma história com começo, tensão e virada. O produto só entra no momento em que a pessoa se reconhece no problema — antes disso é conversa, não propaganda.",
+           en:"My routine, my voice and a story with a beginning, tension and a turn. The product only shows up once people recognise themselves in the problem — until then it is conversation, not advertising." }
+  },
+  {
+    numero:"02",
+    titulo:{ pt:"Review", en:"Review" },
+    desc:{ pt:"Opinião honesta de quem usa: o que funcionou, o que não funcionou e se eu compraria de novo.",
+           en:"An honest opinion from someone who uses it: what worked, what didn't and whether I'd buy it again." }
+  },
+  {
+    numero:"03",
+    titulo:{ pt:"Unboxing", en:"Unboxing" },
+    desc:{ pt:"Abertura de caixa com reação real e o produto saindo do pacote na frente da câmera.",
+           en:"Opening the box with a real reaction and the product coming out of the package in front of the camera." }
+  },
+  {
+    numero:"04",
+    titulo:{ pt:"Demonstração", en:"Demo" },
+    desc:{ pt:"O produto funcionando na mão, com cada passo da rotina e o resultado saindo no mesmo vídeo.",
+           en:"The product working in my hand, with every step of the routine and the result in the same video." }
+  },
+  {
+    numero:"05",
+    titulo:{ pt:"Prova social", en:"Social proof" },
+    desc:{ pt:"Depoimento em vídeo de quem já usa, para colocar uma voz de confiança ao lado da marca.",
+           en:"A video testimonial from someone who already uses it, to put a trusted voice next to the brand." }
+  }
+];
+
 /* SERVIÇOS: os seis blocos da seção Como eu te ajudo. */
 const SERVICOS = [
   { numero:"01", titulo:{ pt:"Vídeo UGC", en:"UGC Video" },            desc:{ pt:"Roteiro, gravação e edição de vídeo com a sua cara, no formato que o algoritmo prefere.", en:"Script, filming and editing with my face, in the format the algorithm rewards." } },
@@ -1985,6 +2140,7 @@ const I18N = {
     "menu.fechar":     "Fechar menu de navegação",
     "menu.sobre":      "Sobre",
     "menu.funil":      "Funil",
+    "menu.formatos":   "Formatos",
     "menu.videos":     "Vídeos",
     "menu.servicos":   "Serviços",
     "menu.depoimentos":"Depoimentos",
@@ -2022,6 +2178,10 @@ const I18N = {
     "funil.ver":  "Ver o vídeo <span aria-hidden=\"true\">&#8599;</span>",
     "funil.nota": "Cada roteiro abaixo está pronto para gravar. Troque o link e a capa pelo seu vídeo real quando quiser publicar.",
     "funil.reel": "<strong>Seu reel aqui</strong>9:16",
+
+    "fmt.tag":   "Formatos",
+    "fmt.title": "Cinco formatos, um jeito de contar",
+    "fmt.lead":  "Storytelling é o meu forte. Os outros quatro existem porque é assim que cada produto entra na minha rotina, mas sempre com história dentro.",
 
     "trab.tag":     "Vídeos por nicho",
     "trab.title":   "Cada nicho, com a minha cara",
@@ -2074,6 +2234,7 @@ const I18N = {
     "menu.fechar":     "Close navigation menu",
     "menu.sobre":      "About",
     "menu.funil":      "Funnel",
+    "menu.formatos":   "Formats",
     "menu.videos":     "Videos",
     "menu.servicos":   "Services",
     "menu.depoimentos":"Testimonials",
@@ -2111,6 +2272,10 @@ const I18N = {
     "funil.ver":  "Watch the video <span aria-hidden=\"true\">&#8599;</span>",
     "funil.nota": "Every script below is ready to record. Swap the link and the cover for your real video whenever you want to publish it.",
     "funil.reel": "<strong>Your reel here</strong>9:16",
+
+    "fmt.tag":   "Formats",
+    "fmt.title": "Five formats, one way of telling",
+    "fmt.lead":  "Storytelling is my strongest suit. The other four exist because that's how each product enters my routine, but always with a story inside.",
 
     "trab.tag":     "Videos by niche",
     "trab.title":   "Every niche, with my face on it",
@@ -2637,6 +2802,41 @@ const I18N = {
 
   /* ---------- SERVIÇOS ---------- */
   const servicosGrid = $("#servicosGrid");
+  function montarFormatos() {
+    const grid = document.getElementById("formatosGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    FORMATOS.forEach(function (f) {
+      const card = document.createElement("article");
+      card.className = "formato-card revelar" + (f.destaque ? " formato-card--destaque" : "");
+
+      const num = document.createElement("span");
+      num.className = "formato-card-num";
+      num.textContent = f.numero;
+
+      const h3 = document.createElement("h3");
+      h3.textContent = T(f.titulo);
+
+      const p = document.createElement("p");
+      p.textContent = T(f.desc);
+
+      card.appendChild(num);
+      card.appendChild(h3);
+      card.appendChild(p);
+
+      if (f.selo) {
+        const selo = document.createElement("span");
+        selo.className = "formato-card-selo";
+        selo.setAttribute("aria-hidden", "true");
+        selo.textContent = f.selo;
+        card.appendChild(selo);
+      }
+
+      grid.appendChild(card);
+    });
+    observarRevelar();
+  }
+
   function montarServicos() {
     servicosGrid.innerHTML = "";
     SERVICOS.forEach(function (s) {
@@ -2737,6 +2937,7 @@ const I18N = {
     /* redesenha as listas no novo idioma */
     montarFaixa();
     montarFunil();
+    montarFormatos();
     montarTrabalhos();
     montarServicos();
     montarDepoimentos();
@@ -2760,6 +2961,7 @@ const I18N = {
   /* ---------- primeira montagem ---------- */
   montarFaixa();
   montarFunil();
+  montarFormatos();
   montarTrabalhos();
   montarServicos();
   montarDepoimentos();
